@@ -7,7 +7,7 @@ const menuData = [
     price:220,
     calories:320,
     description:"Classic pizza with tomatoes and cheese.",
-    image:"https://source.unsplash.com/400x300/?pizza,margherita",
+    image:"https://picsum.photos/seed/pizza/400/300",
 
     ingredients:[
       "Cheese",
@@ -29,7 +29,7 @@ const menuData = [
     price:260,
     calories:400,
     description:"Creamy Alfredo pasta with garlic.",
-    image:"https://source.unsplash.com/400x300/?pasta,alfredo",
+    image:"https://picsum.photos/seed/pasta/400/300",
 
     ingredients:[
       "Cream",
@@ -51,7 +51,7 @@ const menuData = [
     price:280,
     calories:350,
     description:"Grilled cottage cheese with spices.",
-    image:"https://source.unsplash.com/400x300/?paneer,tikka",
+    image:"https://picsum.photos/seed/paneer/400/300",
 
     ingredients:[
       "Paneer",
@@ -73,7 +73,7 @@ const menuData = [
     price:180,
     calories:420,
     description:"Classic veggie burger with fries.",
-    image:"https://source.unsplash.com/400x300/?burger,vegetarian",
+    image:"https://picsum.photos/seed/burger/400/300",
 
     ingredients:[
       "Bun",
@@ -95,7 +95,7 @@ const menuData = [
     price:240,
     calories:380,
     description:"Creamy black lentils with butter and spices.",
-    image:"https://source.unsplash.com/400x300/?dal,indian,lentils",
+    image:"https://picsum.photos/seed/dal/400/300",
 
     ingredients:[
       "Black Lentils",
@@ -117,7 +117,7 @@ const menuData = [
     price:290,
     calories:450,
     description:"Aromatic basmati rice with mixed vegetables.",
-    image:"https://source.unsplash.com/400x300/?biryani,rice",
+    image:"https://picsum.photos/seed/biryani/400/300",
 
     ingredients:[
       "Basmati Rice",
@@ -139,7 +139,7 @@ const menuData = [
     price:150,
     calories:280,
     description:"Crispy rice crepe with spiced potato filling.",
-    image:"https://source.unsplash.com/400x300/?dosa,south,indian",
+    image:"https://picsum.photos/seed/dosa/400/300",
 
     ingredients:[
       "Rice Batter",
@@ -161,7 +161,7 @@ const menuData = [
     price:200,
     calories:520,
     description:"Spicy chickpeas with fluffy fried bread.",
-    image:"https://source.unsplash.com/400x300/?chole,bhature,indian",
+    image:"https://picsum.photos/seed/chole/400/300",
 
     ingredients:[
       "Chickpeas",
@@ -183,7 +183,7 @@ const menuData = [
     price:210,
     calories:340,
     description:"Indo-Chinese veggie balls in tangy sauce.",
-    image:"https://source.unsplash.com/400x300/?manchurian,chinese",
+    image:"https://picsum.photos/seed/manchurian/400/300",
 
     ingredients:[
       "Cabbage",
@@ -205,7 +205,7 @@ const menuData = [
     price:270,
     calories:310,
     description:"Cottage cheese in creamy spinach gravy.",
-    image:"https://source.unsplash.com/400x300/?palak,paneer,spinach",
+    image:"https://picsum.photos/seed/palak/400/300",
 
     ingredients:[
       "Paneer",
@@ -227,7 +227,7 @@ const menuData = [
     price:160,
     calories:250,
     description:"Crispy rolls filled with vegetables.",
-    image:"https://source.unsplash.com/400x300/?spring,rolls,vegetable",
+    image:"https://picsum.photos/seed/springrolls/400/300",
 
     ingredients:[
       "Cabbage",
@@ -249,7 +249,7 @@ const menuData = [
     price:130,
     calories:290,
     description:"Grilled sandwich with fresh vegetables.",
-    image:"https://source.unsplash.com/400x300/?sandwich,grilled,vegetable",
+    image:"https://picsum.photos/seed/sandwich/400/300",
 
     ingredients:[
       "Bread",
