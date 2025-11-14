@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>EatWise — Customizable Menu</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- Loading Screen -->
+<div id="loadingScreen" class="loading-screen">
+  <div class="loader">
+    <div class="loader-circle"></div>
+    <h2>EatWise</h2>
+    <p>Loading delicious dishes...</p>
+  </div>
+</div>
+
+<!-- Toast Notification -->
+<div id="toast" class="toast"></div>
+
+<header class="topbar">
+  <div class="brand">EatWise</div>
+  <div class="controls">
+    <input id="search" placeholder="Search dishes..." />
+    <select id="categoryFilter">
+      <option value="all">All</option>
+    </select>
+    <button id="darkToggle">Dark</button>
+    <button id="viewPlateBtn" class="plate-btn" onclick="showStep(2)" style="display:none;">
+      🛒 Plate (<span id="plateCount">0</span>)
+    </button>
+  </div>
+</header>
+
+<!-- Step Indicators -->
+<div class="step-indicators">
+  <div class="step-indicator active">1. Select Dishes</div>
+  <div class="step-indicator">2. Edit Your Plate</div>
+  <div class="step-indicator">3. Review Order</div>
+  <div class="step-indicator">4. Payment</div>
+</div>
+
+<main>
+  <!-- Step 1: Select Dishes -->
+  <section id="step1" class="step-section">
+    <div class="menu-wrap">
+      <div id="menu" class="menu-grid"></div>
+    </div>
+  </section>
+
+  <!-- Step 2: Edit Your Plate -->
+  <section id="step2" class="step-section" style="display:none;">
+    <div class="plate-section">
+      <h2>Your Plate</h2>
+      <div id="plateItems"></div>
+      <div class="plate-footer">
+        <div class="total-box">Total: ₹<span id="plateTotal">0</span></div>
+        <button class="btn-secondary" onclick="showStep(1)">← Back to Menu</button>
+        <button id="proceedToOrderBtn" class="btn-primary" onclick="showStep(3)">Proceed to Order →</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Step 3: Review Order -->
+  <section id="step3" class="step-section" style="display:none;">
+    <div class="review-section">
+      <div id="orderSummary"></div>
+      <div class="review-footer">
+        <button class="btn-secondary" onclick="showStep(2)">← Edit Plate</button>
+        <button class="btn-primary" onclick="showStep(4)">Proceed to Payment →</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Step 4: Payment -->
+  <section id="step4" class="step-section" style="display:none;">
+    <div class="payment-section" id="paymentSection">
+      <h2>Payment</h2>
+      <div class="payment-total">Total Amount: ₹<span id="finalTotal">0</span></div>
+      
+      <h3>Select Payment Method</h3>
+      <div class="payment-methods">
+        <label class="payment-option">
+          <input type="radio" name="payment" value="UPI" />
+          <span>UPI</span>
+        </label>
+        <label class="payment-option">
+          <input type="radio" name="payment" value="Credit Card" />
+          <span>Credit Card</span>
+        </label>
+        <label class="payment-option">
+          <input type="radio" name="payment" value="Debit Card" />
+          <span>Debit Card</span>
+        </label>
+        <label class="payment-option">
+          <input type="radio" name="payment" value="Cash on Delivery" />
+          <span>Cash on Delivery</span>
+        </label>
+      </div>
+      
+      <div class="payment-footer">
+        <button class="btn-secondary" onclick="showStep(3)">← Back to Review</button>
+        <button class="btn-primary" onclick="processPayment()">Complete Payment</button>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- Chatbot -->
+<div id="chatbot" class="chatbot">
+  <button id="chatToggle" class="chat-toggle">💬</button>
+  <div id="chatWindow" class="chat-window hidden">
+    <div class="chat-header">
+      <span>EatWise Assistant</span>
+      <button id="chatClose" class="chat-close-btn">✕</button>
+    </div>
+    <div id="chatMessages" class="chat-messages">
+      <div class="bot-message">
+        Hi! 👋 I'm your EatWise assistant. I can help you with:
+        <ul>
+          <li>Menu recommendations</li>
+          <li>Dietary preferences</li>
+          <li>Order assistance</li>
+          <li>Ingredient information</li>
+        </ul>
+        How can I help you today?
+      </div>
+    </div>
+    <div class="chat-input-area">
+      <input id="chatInput" type="text" placeholder="Type your message..." />
+      <button id="chatSend" class="chat-send-btn">Send</button>
+    </div>
+  </div>
+</div>
+
+<!-- Updated Modal -->
+<div id="dishModal" class="modal hidden">
+  <div class="modal-card">
+    <button class="modal-close">✕</button>
+
+    <div class="modal-content">
+      <img id="modalImg" class="modal-img" />
+
+      <div class="modal-info">
+        <h2 id="modalTitle"></h2>
+        <p id="modalDesc"></p>
+
+        <ul id="modalMeta" class="meta-list"></ul>
+
+        <h3>Ingredients</h3>
+        <div id="ingredientList" class="ingredient-list"></div>
+
+        <h3>Extras</h3>
+        <div id="extrasList" class="extras-list"></div>
+
+        <h3>Quantity</h3>
+        <input id="modalQty" type="number" min="1" value="1" />
+
+        <div class="price-box">
+          Total: ₹<span id="modalTotal">0</span>
+        </div>
+
+        <button id="addPlate" class="btn-primary">Add to Plate</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="script.js" type="module"></script>
+</body>
+</html>
