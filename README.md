@@ -11,30 +11,43 @@ A modern, feature-rich restaurant ordering web application with AI-powered chatb
 - **Smart Search & Filters**: Find dishes by name, description, or category
 - **Shopping Cart Management**: Add, remove, and modify items before checkout
 
+### 🤖 AI Integration
+- **Gemini AI Chatbot**: Intelligent assistant for menu recommendations
+- **Natural Language Processing**: Ask about dishes, prices, ingredients, and dietary options
+- **Contextual Responses**: Fallback to local responses if API unavailable
+
 ### 🎨 Design & UX
-- **Modern UI**: Gradient themes (Purple/Violet), glassmorphism effects
-- **Smooth Animations**: Card fade-ins, button ripples, modal transitions, step animations
+- **Modern UI**: Gradient themes, glassmorphism effects
+- **Smooth Animations**: Card fade-ins, button ripples, modal transitions
 - **Dark Mode**: Toggle between light and dark themes
 - **Responsive Design**: Works on desktop, tablet, and mobile
 - **Toast Notifications**: Non-intrusive success/error messages
+- **Loading Screen**: Beautiful animated loader
+
+### ⌨️ Keyboard Shortcuts
+- `ESC` - Close modal
+- `/` - Focus search
+- `Ctrl/Cmd + 1-4` - Navigate between steps (when items in cart)
 
 ### 🎯 Interactive Elements
 - **Ingredient Removal**: Click to remove unwanted ingredients
 - **Extra Additions**: Add extras with visual feedback
+- **Quantity Selection**: Adjust portions before adding to cart
 - **Payment Methods**: Choose from UPI, Card, or Cash on Delivery
 
 ## 🚀 Technologies Used
 
-- **Frontend**: HTML5, CSS3, Vanilla JavaScript (ES6+)
-- **Images**: Pexels CDN for high-quality food photos
-- **Design**: Custom CSS with keyframe animations and CSS variables
+- **Frontend**: HTML5, CSS3, Vanilla JavaScript
+- **AI**: Google Gemini API
+- **Images**: Unsplash Source API
+- **Design**: Custom CSS with animations and transitions
 - **No frameworks**: Pure vanilla JS for lightweight performance
 
 ## 📦 Installation
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/Chronos778/EatWise.git
+git clone https://github.com/yourusername/eatwise.git
 cd eatwise
 ```
 
@@ -47,27 +60,40 @@ python -m http.server 8000
 npx serve
 ```
 
+3. (Optional) Add your own Gemini API key in `script.js`:
+```javascript
+const GEMINI_API_KEY = "your-api-key-here";
+```
+
 ## 🎮 Usage
 
-1. **Browse Menu**: Explore 6 delicious vegetarian dishes with high-quality images
+1. **Browse Menu**: Scroll through 12+ delicious vegetarian dishes
 2. **Customize**: Click any dish to customize ingredients and add extras
 3. **Add to Plate**: Review and add customized items to your order
 4. **Review Order**: Check your complete order with itemized pricing
 5. **Payment**: Select payment method and complete your order
+6. **Chat Assistant**: Click the chatbot for menu recommendations and help
 
-## 🌟 Menu
+## 🌟 Features Showcase
 
-### Current Dishes:
-- 🍕 **Margherita Pizza** - Classic pizza with tomatoes and cheese (₹220)
-- 🍝 **Pasta Alfredo** - Creamy Alfredo pasta with garlic (₹260)
-- 🍔 **Veg Burger** - Classic veggie burger with fries (₹180)
-- 🍲 **Dal Makhani** - Creamy black lentils with butter and spices (₹240)
-- 🥞 **Masala Dosa** - Crispy rice crepe with spiced potato filling (₹150)
-- 🥪 **Veg Sandwich** - Grilled sandwich with fresh vegetables (₹130)
+### Menu Items Include:
+- 🍕 Margherita Pizza
+- 🍝 Pasta Alfredo
+- 🧈 Paneer Tikka
+- 🍔 Veg Burger
+- 🍛 Dal Makhani
+- 🍚 Veg Biryani
+- 🥞 Masala Dosa
+- 🥙 Chole Bhature
+- 🥟 Veg Manchurian
+- 🥬 Palak Paneer
+- 🥟 Spring Rolls
+- 🥪 Veg Sandwich
 
 ### Customization Options:
-- Remove any ingredient (free)
-- Add extras (prices vary by item)
+- Remove any ingredient
+- Add extras (cheese, toppings, sides)
+- Adjust quantity
 - See real-time price updates
 
 ## 🎨 Design Highlights
@@ -85,26 +111,12 @@ Edit `script.js` to modify:
 - Menu items and pricing
 - AI chatbot responses
 - Animation timings
-- Purple/Violet gradient theme (#667eea to #764ba2)
-- Glassmorphism on header
-- Card hover effects with smooth transitions
-- Comprehensive animations (15+ keyframe animations)
-- Responsive grid layout
+- Color themes
 
-## 🛠️ Customization
-
-### Menu Items
-Edit `script.js` to add/remove dishes or modify:
-- Prices and calories
-- Ingredients and extras
-- Dish descriptions
-- Image URLs
-
-### Styling
 Edit `style.css` to customize:
-- Color themes (CSS variables)
-- Animation speeds and effects
+- Colors and gradients
 - Spacing and layout
+- Animation effects
 - Dark mode styles
 
 ## 📱 Browser Support
@@ -131,18 +143,18 @@ This project is open source and available under the [MIT License](LICENSE).
 
 ## 👨‍💻 Author
 
-**Maithil**
-- GitHub: [@Chronos778](https://github.com/Chronos778)
+Created with ❤️ by Maithil
 
 ## 🙏 Acknowledgments
 
-- Pexels for high-quality food photography
-- Inspiration from modern food delivery platforms
+- Google Gemini AI for chatbot functionality
+- Unsplash for food images
+- Inspiration from modern food delivery apps
 
-## 🔧 Development
+## 📞 Support
 
-Built with vanilla JavaScript - no frameworks or build tools required. Simply open `index.html` in your browser to get started!
+For support, email your-email@example.com or open an issue in the repository.
 
 ---
 
-⭐ **Star this repo if you found it helpful!**
+⭐ Star this repo if you found it helpful!

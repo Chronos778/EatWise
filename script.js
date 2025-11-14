@@ -479,6 +479,165 @@ window.processPayment = processPayment;
 window.resetOrder = resetOrder;
 window.showStep = showStep;
 
+/* ---------- Chatbot ---------- */
+function initChatbot() {
+  const chatToggle = document.getElementById("chatToggle");
+  const chatWindow = document.getElementById("chatWindow");
+  const chatClose = document.getElementById("chatClose");
+  const chatInput = document.getElementById("chatInput");
+  const chatSend = document.getElementById("chatSend");
+  const chatMessages = document.getElementById("chatMessages");
+
+  if (!chatToggle || !chatWindow || !chatClose || !chatInput || !chatSend || !chatMessages) {
+    console.error("Chat elements not found");
+    return;
+  }
+
+  const GEMINI_API_KEY = "AIzaSyB-rgGfF6tPBIYRlPSVQPcl35tbieQNvOI";
+  const GEMINI_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${GEMINI_API_KEY}`;
+
+  chatToggle.addEventListener('click', () => {
+    console.log("Toggle clicked");
+    chatWindow.classList.toggle("hidden");
+    if(!chatWindow.classList.contains("hidden")) {
+      chatInput.focus();
+    }
+  });
+
+  chatClose.addEventListener('click', (e) => {
+    e.stopPropagation();
+    console.log("Close clicked");
+    chatWindow.classList.add("hidden");
+  });
+
+  function addMessage(text, isUser = false) {
+    const msg = document.createElement("div");
+    msg.className = isUser ? "user-message" : "bot-message";
+    msg.innerHTML = text;
+    chatMessages.appendChild(msg);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+  }
+
+  async function getGeminiResponse(userMsg) {
+    // Create context about the restaurant and menu
+    const menuContext = menuData.map(d => 
+      `${d.name} (${d.category}) - ${d.description} - Price: ₹${d.price}, Calories: ${d.calories}, Ingredients: ${d.ingredients.join(", ")}`
+    ).join("\n");
+    
+    const systemPrompt = `You are a friendly assistant for EatWise restaurant. Here's our menu:
+
+${menuContext}
+
+You help customers with:
+- Menu recommendations based on preferences
+- Information about dishes, ingredients, prices, and calories
+- Dietary requirements (vegetarian options)
+- Order assistance
+- General restaurant inquiries
+
+Keep responses concise, friendly, and helpful. Use emojis occasionally. Always refer to our actual menu items.
+
+Customer question: ${userMsg}`;
+    
+    try {
+      const response = await fetch(GEMINI_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          contents: [{
+            parts: [{
+              text: systemPrompt
+            }]
+          }],
+          generationConfig: {
+            temperature: 0.7,
+            maxOutputTokens: 500,
+          }
+        })
+      });
+      
+      if (!response.ok) {
+        const errorData = await response.json();
+        console.error('API Error:', errorData);
+        throw new Error(`API request failed: ${response.status}`);
+      }
+      
+      const data = await response.json();
+      
+      if (data.candidates && data.candidates[0] && data.candidates[0].content) {
+        return data.candidates[0].content.parts[0].text;
+      } else {
+        throw new Error('Invalid response structure');
+      }
+    } catch (error) {
+      console.error('Gemini API Error:', error);
+      
+      // Fallback to local responses
+      const msg = userMsg.toLowerCase();
+      
+      if(msg.includes("recommend") || msg.includes("suggest")) {
+        const dishes = menuData.map(d => d.name).join(", ");
+        return `I recommend trying our popular dishes: ${dishes}. All are delicious! 😋`;
+      }
+      
+      if(msg.includes("veg") || msg.includes("vegetarian")) {
+        const vegDishes = menuData.filter(d => d.category === "Veg");
+        return `We have ${vegDishes.length} vegetarian options: ${vegDishes.map(d => d.name).join(", ")}. All are 100% vegetarian! 🌱`;
+      }
+      
+      if(msg.includes("price") || msg.includes("cost") || msg.includes("cheap")) {
+        const cheapest = menuData.reduce((min, d) => d.price < min.price ? d : min);
+        return `Our most affordable dish is ${cheapest.name} at ₹${cheapest.price}. Great value! 💰`;
+      }
+      
+      if(msg.includes("calorie") || msg.includes("healthy") || msg.includes("diet")) {
+        const lowest = menuData.reduce((min, d) => d.calories < min.calories ? d : min);
+        return `For a lighter option, try ${lowest.name} with only ${lowest.calories} calories. Perfect for health-conscious eaters! 🥗`;
+      }
+      
+      for(let dish of menuData) {
+        if(msg.includes(dish.name.toLowerCase())) {
+          return `${dish.name} - ${dish.description}<br>Price: ₹${dish.price} | Calories: ${dish.calories}<br>Ingredients: ${dish.ingredients.join(", ")}. Want to order it? 🍽️`;
+        }
+      }
+      
+      return `I'm here to help! You can ask me about:<br>• Menu recommendations<br>• Vegetarian options<br>• Prices and calories<br>• Specific dishes<br>What would you like to know? 🤔`;
+    }
+  }
+
+  async function sendMessage() {
+    const text = chatInput.value.trim();
+    if(!text) return;
+    
+    addMessage(text, true);
+    chatInput.value = "";
+    
+    // Show typing indicator
+    const typingMsg = document.createElement("div");
+    typingMsg.className = "bot-message typing-indicator";
+    typingMsg.textContent = "Typing...";
+    chatMessages.appendChild(typingMsg);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+    
+    const response = await getGeminiResponse(text);
+    
+    // Remove typing indicator
+    typingMsg.remove();
+    
+    addMessage(response, false);
+  }
+
+  chatSend.addEventListener('click', sendMessage);
+  chatInput.addEventListener('keypress', (e) => {
+    if(e.key === "Enter") sendMessage();
+  });
+}
+
+// Initialize chatbot after DOM is loaded
+setTimeout(initChatbot, 100);
+
 /* ---------- Keyboard Shortcuts ---------- */
 document.addEventListener('keydown', (e) => {
   // ESC to close modal
