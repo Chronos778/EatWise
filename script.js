@@ -7,7 +7,7 @@ const menuData = [
     price:220,
     calories:320,
     description:"Classic pizza with tomatoes and cheese.",
-    image:"https://picsum.photos/seed/pizza/400/300",
+    image:"https://images.pexels.com/photos/1566837/pexels-photo-1566837.jpeg?auto=compress&cs=tinysrgb&w=400",
 
     ingredients:[
       "Cheese",
@@ -29,7 +29,7 @@ const menuData = [
     price:260,
     calories:400,
     description:"Creamy Alfredo pasta with garlic.",
-    image:"https://picsum.photos/seed/pasta/400/300",
+    image:"https://images.pexels.com/photos/1279330/pexels-photo-1279330.jpeg?auto=compress&cs=tinysrgb&w=400",
 
     ingredients:[
       "Cream",
@@ -46,34 +46,12 @@ const menuData = [
   
   {
     id:"m3",
-    name:"Paneer Tikka",
-    category:"Veg",
-    price:280,
-    calories:350,
-    description:"Grilled cottage cheese with spices.",
-    image:"https://picsum.photos/seed/paneer/400/300",
-
-    ingredients:[
-      "Paneer",
-      "Yogurt",
-      "Spices",
-      "Bell Peppers"
-    ],
-
-    extras:[
-      {name:"Extra Paneer", price:60},
-      {name:"Mint Chutney", price:20}
-    ]
-  },
-  
-  {
-    id:"m4",
     name:"Veg Burger",
     category:"Veg",
     price:180,
     calories:420,
     description:"Classic veggie burger with fries.",
-    image:"https://picsum.photos/seed/burger/400/300",
+    image:"https://images.pexels.com/photos/1639557/pexels-photo-1639557.jpeg?auto=compress&cs=tinysrgb&w=400",
 
     ingredients:[
       "Bun",
@@ -89,13 +67,13 @@ const menuData = [
   },
   
   {
-    id:"m5",
+    id:"m4",
     name:"Dal Makhani",
     category:"Veg",
     price:240,
     calories:380,
     description:"Creamy black lentils with butter and spices.",
-    image:"https://picsum.photos/seed/dal/400/300",
+    image:"https://images.pexels.com/photos/2474661/pexels-photo-2474661.jpeg?auto=compress&cs=tinysrgb&w=400",
 
     ingredients:[
       "Black Lentils",
@@ -111,35 +89,13 @@ const menuData = [
   },
   
   {
-    id:"m6",
-    name:"Veg Biryani",
-    category:"Veg",
-    price:290,
-    calories:450,
-    description:"Aromatic basmati rice with mixed vegetables.",
-    image:"https://picsum.photos/seed/biryani/400/300",
-
-    ingredients:[
-      "Basmati Rice",
-      "Mixed Vegetables",
-      "Saffron",
-      "Fried Onions"
-    ],
-
-    extras:[
-      {name:"Raita", price:30},
-      {name:"Extra Vegetables", price:40}
-    ]
-  },
-  
-  {
-    id:"m7",
+    id:"m5",
     name:"Masala Dosa",
     category:"Veg",
     price:150,
     calories:280,
     description:"Crispy rice crepe with spiced potato filling.",
-    image:"https://picsum.photos/seed/dosa/400/300",
+    image:"https://images.pexels.com/photos/5560763/pexels-photo-5560763.jpeg?auto=compress&cs=tinysrgb&w=400",
 
     ingredients:[
       "Rice Batter",
@@ -155,101 +111,13 @@ const menuData = [
   },
   
   {
-    id:"m8",
-    name:"Chole Bhature",
-    category:"Veg",
-    price:200,
-    calories:520,
-    description:"Spicy chickpeas with fluffy fried bread.",
-    image:"https://picsum.photos/seed/chole/400/300",
-
-    ingredients:[
-      "Chickpeas",
-      "Fried Bread",
-      "Onions",
-      "Spices"
-    ],
-
-    extras:[
-      {name:"Extra Bhature", price:30},
-      {name:"Pickle", price:15}
-    ]
-  },
-  
-  {
-    id:"m9",
-    name:"Veg Manchurian",
-    category:"Veg",
-    price:210,
-    calories:340,
-    description:"Indo-Chinese veggie balls in tangy sauce.",
-    image:"https://picsum.photos/seed/manchurian/400/300",
-
-    ingredients:[
-      "Cabbage",
-      "Carrots",
-      "Soy Sauce",
-      "Cornflour"
-    ],
-
-    extras:[
-      {name:"Fried Rice", price:60},
-      {name:"Extra Sauce", price:20}
-    ]
-  },
-  
-  {
-    id:"m10",
-    name:"Palak Paneer",
-    category:"Veg",
-    price:270,
-    calories:310,
-    description:"Cottage cheese in creamy spinach gravy.",
-    image:"https://picsum.photos/seed/palak/400/300",
-
-    ingredients:[
-      "Paneer",
-      "Spinach",
-      "Cream",
-      "Spices"
-    ],
-
-    extras:[
-      {name:"Extra Paneer", price:50},
-      {name:"Butter Naan", price:45}
-    ]
-  },
-  
-  {
-    id:"m11",
-    name:"Spring Rolls",
-    category:"Veg",
-    price:160,
-    calories:250,
-    description:"Crispy rolls filled with vegetables.",
-    image:"https://picsum.photos/seed/springrolls/400/300",
-
-    ingredients:[
-      "Cabbage",
-      "Carrots",
-      "Spring Roll Wrapper",
-      "Soy Sauce"
-    ],
-
-    extras:[
-      {name:"Sweet Chili Sauce", price:20},
-      {name:"Extra Rolls", price:40}
-    ]
-  },
-  
-  {
-    id:"m12",
+    id:"m6",
     name:"Veg Sandwich",
     category:"Veg",
     price:130,
     calories:290,
     description:"Grilled sandwich with fresh vegetables.",
-    image:"https://picsum.photos/seed/sandwich/400/300",
+    image:"https://images.pexels.com/photos/1600711/pexels-photo-1600711.jpeg?auto=compress&cs=tinysrgb&w=400",
 
     ingredients:[
       "Bread",
@@ -334,7 +202,7 @@ function renderMenu(){
     card.className = "card fade-in";
     card.style.animationDelay = `${index * 0.05}s`;
     card.innerHTML = `
-      <img src="${d.image}" class="thumb" alt="${d.name}" loading="lazy" onerror="this.src='https://via.placeholder.com/400x300/667eea/ffffff?text=${encodeURIComponent(d.name)}'" />
+      <img src="${d.image}" class="thumb" alt="${d.name}" loading="lazy" />
       <h3>${d.name}</h3>
       <p>${d.description}</p>
       <div class="tags-container">
@@ -355,11 +223,7 @@ function openModal(d){
   removedIngredients = [];
   addedExtras = [];
 
-  modalImg.src = d.image;
-  modalImg.alt = d.name;
-  modalImg.onerror = function() {
-    this.src = `https://via.placeholder.com/320x220/667eea/ffffff?text=${encodeURIComponent(d.name)}`;
-  };
+  modalImg.innerHTML = `<img src="${d.image}" alt="${d.name}" style="width:100%;height:100%;object-fit:cover;border-radius:12px;" />`;
   modalTitle.textContent = d.name;
   modalDesc.textContent = d.description;
 
