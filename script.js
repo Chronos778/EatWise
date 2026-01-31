@@ -78,7 +78,8 @@ const menuData = [
 const state = {
   plate: [],
   searchTerm: '',
-  category: 'all'
+  category: 'all',
+  specials: [] // Store specials here
 };
 
 // --- DOM ---
@@ -107,6 +108,7 @@ const els = {
 
 // --- Init ---
 function init() {
+  renderSpecials();
   renderMenu();
   renderFilters();
   document.getElementById('currentDate').textContent = new Date().toLocaleDateString();
@@ -136,6 +138,35 @@ function init() {
 
   // Chat
   setupChat();
+}
+
+function renderSpecials() {
+  // Only generate once if empty
+  if (state.specials.length === 0) {
+    state.specials = [...menuData].sort(() => 0.5 - Math.random()).slice(0, 2);
+  }
+  const specials = state.specials;
+
+  const container = document.getElementById('dailySpecials');
+  container.innerHTML = `
+    <div class="specials-banner">
+      <h2 class="specials-title">★ CHEF'S SELECTION</h2>
+      <div class="specials-grid">
+        ${specials.map(d => `
+          <div class="special-card">
+            <div style="display:flex; justify-content:space-between; align-items:start;">
+              <h3 class="special-name">${d.name}</h3>
+              <span class="special-price">₹${d.price}</span>
+            </div>
+            <p class="special-desc">${d.description}</p>
+            <button onclick="addToCart('${d.id}')" class="special-add-btn">
+              ADD TO ORDER +
+            </button>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  `;
 }
 
 // --- Render (TEXT ONLY MODE) ---
@@ -218,45 +249,134 @@ function showToast(msg) {
   setTimeout(() => els.toast.style.display = 'none', 2000);
 }
 
-// --- Checkout & Payment ---
+// --- Checkout & Payment V2 (Terminal) ---
 const paymentModal = document.getElementById('paymentModal');
+const termUI = {
+  form: document.getElementById('paymentFormUI'),
+  log: document.getElementById('paymentLogUI'),
+  logList: document.getElementById('terminalLogList'),
+  cardNum: document.getElementById('cardNumInput'),
+  cardExp: document.getElementById('cardExpInput'),
+  cardCvv: document.getElementById('cardCvvInput'),
+  dispNum: document.getElementById('cardNumDisp'),
+  dispExp: document.getElementById('cardExpDisp'),
+  opts: document.querySelectorAll('.pay-opt-btn'),
+  close: document.getElementById('closePayment')
+};
 
 document.getElementById('checkoutBtn').onclick = () => {
   if (state.plate.length === 0) {
     showToast('PLATE IS EMPTY. ADD FOOD.');
     return;
   }
-  paymentModal.style.display = 'flex'; // Show modal
+  // Reset UI
+  termUI.form.classList.remove('hidden');
+  termUI.log.classList.add('hidden');
+  termUI.cardNum.value = '';
+  termUI.cardExp.value = '';
+  termUI.cardCvv.value = '';
+  termUI.dispNum.textContent = '0000 0000 0000 0000';
+  termUI.dispExp.textContent = 'MM/YY';
+  paymentModal.style.display = 'flex';
 };
 
-document.getElementById('closePayment').onclick = () => {
+termUI.close.onclick = () => {
   paymentModal.style.display = 'none';
 };
+
+// Input Formatting & Virtual Card Update
+termUI.cardNum.oninput = (e) => {
+  let v = e.target.value.replace(/\D/g, '').substring(0, 16);
+  // Add spaces
+  let parts = [];
+  for (let i = 0; i < v.length; i += 4) {
+    parts.push(v.substring(i, i + 4));
+  }
+  e.target.value = parts.join(' ');
+  termUI.dispNum.textContent = parts.length ? parts.join(' ') : '0000 0000 0000 0000';
+};
+
+termUI.cardExp.oninput = (e) => {
+  let v = e.target.value.replace(/\D/g, '').substring(0, 4);
+  if (v.length >= 2) {
+    e.target.value = v.substring(0, 2) + '/' + v.substring(2);
+  } else {
+    e.target.value = v;
+  }
+  termUI.dispExp.textContent = e.target.value || 'MM/YY';
+};
+
+// Quick Pay Options
+termUI.opts.forEach(btn => {
+  btn.onclick = () => {
+    termUI.opts.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  };
+});
 
 document.getElementById('confirmPayBtn').onclick = () => {
-  paymentModal.style.display = 'none';
+  // Start Terminal Sequence
+  const method = document.querySelector('.pay-opt-btn.active').dataset.method.toUpperCase();
+  termUI.form.classList.add('hidden');
+  termUI.log.classList.remove('hidden');
+  termUI.logList.innerHTML = '';
 
-  // Trigger original printing animation
-  const paper = document.querySelector('.receipt-paper');
-  paper.classList.add('printing');
-  showToast('PAYMENT VERIFIED. PRINTING... 🖨️');
+  const logs = [
+    `> INITIALIZING SECURE LINK...`,
+    `> HANDSHAKE ESTABLISHED (TLS 1.3)`,
+    `> VERIFYING ${method} CREDENTIALS...`,
+    `> ENCRYPTING PACKET [################]`,
+    `> CONNECTING TO BANK GATEWAY...`,
+    `> AUTHORIZING TRANSACTION...`,
+    `> PAYMENT APPROVED.`
+  ];
 
+  let delay = 0;
+  logs.forEach((line, i) => {
+    delay += Math.floor(Math.random() * 400) + 200;
+    setTimeout(() => {
+      termUI.logList.innerHTML += `<div class="log-line">${line}</div>`;
+      // Final step
+      if (i === logs.length - 1) {
+        finishPayment();
+      }
+    }, delay);
+  });
+};
+
+function finishPayment() {
   setTimeout(() => {
-    state.plate = [];
-    renderCart();
-
-    paper.classList.remove('printing');
-    paper.classList.add('hidden');
+    paymentModal.style.display = 'none';
+    const paper = document.querySelector('.receipt-paper');
+    paper.classList.add('printing');
+    showToast('TRANSACTION COMPLETE. PRINTING RECEIPT 🖨️');
 
     setTimeout(() => {
-      paper.classList.remove('hidden');
-      paper.classList.add('new');
-      setTimeout(() => paper.classList.remove('new'), 600);
-    }, 100);
+      state.plate = [];
+      renderCart();
 
-    document.getElementById('orderId').textContent = Math.floor(Math.random() * 9000) + 1000;
+      // Reset App State to "Main Menu"
+      state.searchTerm = '';
+      state.category = 'all';
+      els.search.value = '';
+      renderMenu();
+      renderFilters();
+      document.querySelector('.main-feed').scrollTop = 0;
+
+      paper.classList.remove('printing');
+      paper.classList.add('hidden');
+
+      setTimeout(() => {
+        paper.classList.remove('hidden');
+        paper.classList.add('new');
+        setTimeout(() => paper.classList.remove('new'), 600);
+      }, 100);
+
+      document.getElementById('orderId').textContent = Math.floor(Math.random() * 9000) + 1000;
+      document.getElementById('currentDate').textContent = new Date().toLocaleDateString();
+    }, 1000);
   }, 1000);
-};
+}
 
 // --- Chatbot Integration ---
 function setupChat() {
@@ -284,13 +404,24 @@ function setupChat() {
 
     try {
       // Create context
-      const menuContext = menuData.map(d => `${d.name} (${d.category}, ₹${d.price}): ${d.description}`).join("\n");
+      const menuContext = menuData.map(d => `${d.name} (${d.category}, ₹${d.price}, ID:${d.id}): ${d.description}`).join("\n");
+      const specialsContext = state.specials.map(d => `${d.name} (ID:${d.id})`).join(", ");
+
       const systemPrompt = `SYSTEM_ROLE: YOU ARE A ROBOTIC WAITER 'AI-WAITER-9000'.
 STYLE: RAW, BRUTALIST, ALL CAPS, CONCISE. NO EMOJIS.
 DATA:
 ${menuContext}
-TASK: ANSWER CUSTOMER QUERY. KEEP IT SHORT. IF ASKED FOR RECS, LIST 2 ITEMS.
-USER: ${text}`;
+
+TODAY'S SPECIALS: ${specialsContext}
+
+TASK: ANSWER CUSTOMER QUERY and TAKE ORDERS.
+IMPORTANT:
+1. IF USER WANTS TO ORDER, RESPOND WITH FORMAT: "CMD:ORDER|{ID} || {YOUR_MESSAGE}".
+   EXAMPLE: USER "I want the pizza" -> RESPONSE: "CMD:ORDER|m1 || ADDING PIZZA MARGHERITA TO TICKET."
+2. IF NO ORDER, JUST RESPOND NORMALLY.
+3. RECOMMEND TODAY'S SPECIALS IF ASKED.
+
+USER QUERY: ${text}`;
 
       const response = await fetch(GEMINI_URL, {
         method: 'POST',
@@ -306,7 +437,20 @@ USER: ${text}`;
         throw new Error(data.error.message);
       }
 
-      const reply = data.candidates[0].content.parts[0].text;
+      let reply = data.candidates[0].content.parts[0].text;
+
+      // Check for commands
+      if (reply.includes("CMD:ORDER|")) {
+        const parts = reply.split("||");
+        const cmdPart = parts[0].trim(); // CMD:ORDER|m1
+        const msgPart = parts[1] ? parts[1].trim() : "ORDER CONFIRMED.";
+
+        const itemId = cmdPart.split("|")[1];
+        if (itemId) {
+          window.addToCart(itemId);
+        }
+        reply = msgPart;
+      }
 
       // Update UI
       document.getElementById(processingId).innerHTML = `> AI: ${reply.toUpperCase()}`;

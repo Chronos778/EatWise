@@ -24,6 +24,9 @@
     <!-- 2. Main Feed -->
     <main class="main-feed">
 
+      <!-- Specials Section -->
+      <div id="dailySpecials" style="margin-bottom: 40px;"></div>
+
       <div class="feed-header">
         <h1 class="section-title">TODAY'S<br>MENU</h1>
 
@@ -85,7 +88,7 @@
         <button class="dock-btn" id="dockMenu" title="Menu">MENU</button>
         <button class="dock-btn" id="dockCart" title="Cart">CART (<span id="cartCount">0</span>)</button>
         <button class="dock-btn" id="dockChat" title="Chat">?</button>
-        <button class="dock-btn" id="dockTheme" title="Void Mode" style="color:var(--ink);">☀/☾</button>
+        <button class="dock-btn" id="dockTheme" title="Void Mode">☀/☾</button>
       </div>
     </div>
 
@@ -109,38 +112,66 @@
 
   <!-- Payment Modal -->
   <div id="paymentModal" class="hidden"
-    style="position:fixed; inset:0; background:rgba(18,18,18,0.9); z-index:100; display:none; align-items:center; justify-content:center;">
-    <div class="brut-card" style="width:400px; padding:0; background:var(--bg-paper);">
+    style="position:fixed; inset:0; background:rgba(0,0,0,0.95); z-index:100; display:none; align-items:center; justify-content:center;">
+
+    <div class="brut-card payment-terminal-card"
+      style="padding:0; background:var(--bg-paper); border:4px solid var(--ink);">
+      <!-- Terminal Header -->
       <div
         style="background:var(--ink); color:white; padding:16px; font-family:var(--font-display); font-weight:800; display:flex; justify-content:space-between; align-items:center;">
-        <span>PAYMENT PROCESSING</span>
+        <span>TERMINAL v2.0</span>
         <button id="closePayment"
           style="background:transparent; color:white; border:none; font-size:24px; cursor:pointer;">X</button>
       </div>
 
-      <div style="padding:24px;">
+      <!-- Quick Pay Options -->
+      <div style="padding:16px; border-bottom:var(--border-thick); display:flex; gap:8px;">
+        <button class="pay-opt-btn active" data-method="card">CARD</button>
+        <button class="pay-opt-btn" data-method="crypto">CRYPTO</button>
+        <button class="pay-opt-btn" data-method="apple">APPLE</button>
+      </div>
+
+      <!-- Main Interface -->
+      <div id="paymentFormUI" style="padding:24px;">
+
+        <!-- Virtual Card Visual -->
+        <div class="virtual-card">
+          <div class="chip"></div>
+          <div class="card-num-display" id="cardNumDisp">0000 0000 0000 0000</div>
+          <div style="display:flex; justify-content:space-between; margin-top:20px;">
+            <div class="card-name-display">VALUED CUSTOMER</div>
+            <div class="card-exp-display" id="cardExpDisp">MM/YY</div>
+          </div>
+        </div>
+
+        <!-- Inputs -->
         <div style="margin-bottom:16px;">
-          <label style="display:block; font-weight:800; margin-bottom:8px;">CARD NUMBER</label>
-          <input type="text" placeholder="0000 0000 0000 0000"
-            style="width:100%; padding:12px; border:3px solid black; font-family:'Space Grotesk'; font-weight:bold; font-size:16px;">
+          <label style="display:block; font-weight:800; margin-bottom:8px; font-size:12px;">CARD NUMBER</label>
+          <input type="text" id="cardNumInput" placeholder="0000 0000 0000 0000" maxlength="19" class="terminal-input">
         </div>
 
         <div style="display:flex; gap:16px; margin-bottom:24px;">
           <div style="flex:1;">
-            <label style="display:block; font-weight:800; margin-bottom:8px;">EXPIRY</label>
-            <input type="text" placeholder="MM/YY"
-              style="width:100%; padding:12px; border:3px solid black; font-family:'Space Grotesk'; font-weight:bold;">
+            <label style="display:block; font-weight:800; margin-bottom:8px; font-size:12px;">EXPIRY</label>
+            <input type="text" id="cardExpInput" placeholder="MM/YY" maxlength="5" class="terminal-input">
           </div>
           <div style="flex:1;">
-            <label style="display:block; font-weight:800; margin-bottom:8px;">CVV</label>
-            <input type="text" placeholder="123"
-              style="width:100%; padding:12px; border:3px solid black; font-family:'Space Grotesk'; font-weight:bold;">
+            <label style="display:block; font-weight:800; margin-bottom:8px; font-size:12px;">CVV</label>
+            <input type="password" id="cardCvvInput" placeholder="***" maxlength="3" class="terminal-input">
           </div>
         </div>
 
-        <button id="confirmPayBtn" class="checkout-btn" style="background:var(--acid-green); color:black;">AUTHORIZE
-          PAYMENT</button>
+        <button id="confirmPayBtn" class="checkout-btn" style="background:var(--acid-green); color:black;">
+          INITIATE TRANSFER
+        </button>
       </div>
+
+      <!-- Terminal Log / Processing Screen -->
+      <div id="paymentLogUI" class="hidden"
+        style="padding:24px; height:360px; background:black; color:var(--acid-green); font-family:'Courier New'; overflow:hidden;">
+        <div id="terminalLogList"></div>
+      </div>
+
     </div>
   </div>
 

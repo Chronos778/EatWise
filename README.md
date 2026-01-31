@@ -1,6 +1,58 @@
-# 🍽️ EatWise - Smart Restaurant Ordering System
+# EATWISE /// RAW
 
-A modern, feature-rich restaurant ordering web application with AI-powered chatbot assistance, built with vanilla JavaScript, HTML, and CSS.
+![EatWise Banner](https://img.shields.io/badge/STYLE-NEO--BRUTALISM-black?style=for-the-badge) ![AI](https://img.shields.io/badge/AI-GEMINI--1.5-green?style=for-the-badge)
+
+**A RAW, NO-NONSENSE RESTAURANT ORDERING SYSTEM.**
+Built with pure HTML, CSS, and JS. Designed for speed, aesthetics, and efficiency.
+
+## /// FEATURES
+
+### ★ DAILY SPECIALS
+
+- **Chef's Selection**: Randomly generated daily recommendations.
+- **Instant Add**: One-click add to cart from the specials banner.
+- **Void Mode**: Optimized dark mode with high-contrast visuals.
+
+### 🤖 AI WAITER (Gemini 1.5)
+
+- **Smart Ordering**: Type "I want a pizza" and the AI adds it to your cart.
+- **Context Aware**: Knows the menu, prices, and your current order.
+- **Raw Personality**: A robotic, efficient, and brutalist AI persona.
+
+### 💳 TERMINAL PAYMENT v2.0
+
+- **Virtual Card**: Real-time visual updates as you type.
+- **Hacker-Style Processing**: Simulated terminal logs and connection sequences.
+- **Multiple Modes**: Support for CARD, CRYPTO, and APPLE PAY (Visual).
+
+### 🎨 NEO-BRUTALIST DESIGN
+
+- **Bold Typography**: Syne & Space Grotesk fonts.
+- **High Contrast**: Acid Green on Black / Stark White on Black.
+- **Responsive**: Fluid layout from mobile to desktop.
+- **Interactive**: Hover effects, marquee scrolling, and smooth transitions.
+
+## /// INSTALLATION
+
+1. **Clone**
+
+   ```bash
+   git clone https://github.com/Chronos778/EatWise.git
+   cd eatwise
+   ```
+
+2. **Run**
+   - Open `index.html` in any browser.
+   - Or use a local server: `npx serve`
+
+## /// TECH STACK
+
+- **Core**: HTML5, CSS3, Vanilla JS
+- **AI**: Google Gemini API
+- **Fonts**: Google Fonts (Syne, Space Grotesk)
+
+---
+**EAT WISE /// LIVE GOOD**
 
 ![EatWise Preview](https://img.shields.io/badge/Version-1.0.0-blue.svg)
 ![License](https://img.shields.io/badge/License-MIT-green.svg)
@@ -9,6 +61,7 @@ A modern, feature-rich restaurant ordering web application with AI-powered chatb
 ## ✨ Features
 
 ### 🎯 Core Functionality
+
 - **Multi-Step Ordering Process**: Intuitive 4-step workflow (Select → Edit → Review → Payment)
 - **Customizable Menu Items**: Full control over ingredients and extras
 - **Real-time Price Calculation**: Dynamic pricing based on customizations
@@ -16,11 +69,13 @@ A modern, feature-rich restaurant ordering web application with AI-powered chatb
 - **Shopping Cart Management**: Complete cart control with add/remove/edit capabilities
 
 ### 🤖 AI Integration
+
 - **Gemini AI Chatbot**: Intelligent virtual assistant for menu recommendations
 - **Natural Language Processing**: Conversational queries about dishes, prices, and dietary needs
 - **Contextual Responses**: Smart fallback system for offline functionality
 
 ### 🎨 Design & UX
+
 - **Modern UI**: Stunning gradient themes with glassmorphism effects
 - **Smooth Animations**: 15+ custom CSS animations (fade-ins, ripples, transitions)
 - **Dark Mode**: Seamless light/dark theme toggle with persistence
@@ -30,11 +85,13 @@ A modern, feature-rich restaurant ordering web application with AI-powered chatb
 - **Loading Screen**: Elegant animated splash screen
 
 ### ⌨️ Keyboard Shortcuts
+
 - `ESC` - Close modal
 - `/` - Focus search bar
 - `Ctrl/Cmd + 1-4` - Quick navigation between steps (when cart has items)
 
 ### 🎯 Interactive Elements
+
 - **Ingredient Removal**: One-click ingredient exclusion with visual feedback
 - **Extra Additions**: Add premium extras with animated confirmations
 - **Quantity Selection**: Flexible portion control before checkout
@@ -52,12 +109,13 @@ A modern, feature-rich restaurant ordering web application with AI-powered chatb
 ## 📦 Installation & Setup
 
 1. **Clone the repository:**
+
 ```bash
 git clone https://github.com/Chronos778/EatWise.git
 cd eatwise
 ```
 
-2. **Open the application:**
+1. **Open the application:**
    - Simply open `index.html` in your browser, or
    - Use a local development server:
 
@@ -72,14 +130,15 @@ npx serve
 php -S localhost:8000
 ```
 
-3. **Configure AI Chatbot (Optional):**
+1. **Configure AI Chatbot (Optional):**
    - Get a free API key from [Google AI Studio](https://makersuite.google.com/app/apikey)
    - Add your key in `script.js`:
+
 ```javascript
 const GEMINI_API_KEY = "your-api-key-here";
 ```
 
-4. **Access the app:**
+1. **Access the app:**
    - Open `http://localhost:8000` in your browser
    - Start ordering delicious food! 🍽️
 
@@ -94,7 +153,8 @@ const GEMINI_API_KEY = "your-api-key-here";
 
 ## 🌟 Features Showcase
 
-### Menu Items Include:
+### Menu Items Include
+
 - 🍕 Margherita Pizza
 - 🍝 Pasta Alfredo
 - 🧈 Paneer Tikka
@@ -108,7 +168,8 @@ const GEMINI_API_KEY = "your-api-key-here";
 - 🥟 Spring Rolls
 - 🥪 Veg Sandwich
 
-### Customization Options:
+### Customization Options
+
 - Remove any ingredient
 - Add extras (cheese, toppings, sides)
 - Adjust quantity
@@ -126,12 +187,14 @@ const GEMINI_API_KEY = "your-api-key-here";
 ## 🔧 Configuration
 
 Edit `script.js` to modify:
+
 - Menu items and pricing
 - AI chatbot responses
 - Animation timings
 - Color themes
 
 Edit `style.css` to customize:
+
 - Colors and gradients
 - Spacing and layout
 - Animation effects

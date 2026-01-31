@@ -28,8 +28,10 @@
 
 /* Void Mode (Dark) */
 body.void-mode {
-  --bg-paper: #0a0a0a;
-  --ink: #e0e0e0;
+  --bg-paper: #050505;
+  /* Pitch black */
+  --ink: #ffffff;
+  /* White text default */
   --acid-green: #90ff00;
   /* Brighter for contrast */
 }
@@ -49,6 +51,49 @@ body.void-mode .dock-btn:hover {
 
 body.void-mode .card-title {
   color: #fff;
+}
+
+body.void-mode .special-card {
+  background: #1a1a1a;
+  color: white;
+  border-color: #e0e0e0;
+}
+
+/* Ensure text on Acid Green is always dark */
+body.void-mode .specials-title,
+body.void-mode .specials-banner {
+  color: #000;
+}
+
+body.void-mode .specials-banner::after {
+  background: #000;
+  color: var(--acid-green);
+}
+
+/* Fix Marquee Header in Void Mode (Force Black Background) */
+body.void-mode .marquee-header {
+  background: #000;
+  color: var(--acid-green);
+  border-bottom: 3px solid #fff;
+}
+
+/* Fix Receipt Panel in Void Mode */
+body.void-mode .receipt-panel {
+  background: #000;
+  /* Darker than paper */
+  border-left: 3px solid #fff;
+}
+
+body.void-mode .receipt-paper {
+  background: #121212;
+  border: 2px solid #fff;
+  /* High contrast border */
+}
+
+/* Fix Receipt Header dashed line */
+body.void-mode .receipt-header,
+body.void-mode .total-section {
+  border-color: #fff;
 }
 
 * {
@@ -159,6 +204,102 @@ body {
 
 .filter-btn.active {
   background: var(--ink);
+  color: var(--bg-paper);
+}
+
+/* --- Specials --- */
+.specials-banner {
+  background: var(--acid-green);
+  border: var(--border-thick);
+  padding: 24px;
+  box-shadow: var(--shadow-hard);
+  margin-bottom: 32px;
+  position: relative;
+  overflow: hidden;
+}
+
+.specials-banner::after {
+  content: "TODAY'S SPECIAL /// TODAY'S SPECIAL ///";
+  position: absolute;
+  top: 10px;
+  right: -20px;
+  background: var(--ink);
+  color: white;
+  font-weight: 800;
+  font-size: 12px;
+  padding: 4px 20px;
+  transform: rotate(45deg);
+}
+
+.specials-title {
+  font-family: var(--font-display);
+  font-size: 32px;
+  font-weight: 800;
+  text-transform: uppercase;
+  margin: 0 0 16px 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.specials-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.special-card {
+  background: white;
+  border: var(--border-thin);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+body.void-mode .special-card button {
+  background: #000 !important;
+  color: #ccff00 !important;
+  border-color: #ccff00 !important;
+}
+
+body.void-mode .special-card h3 {
+  color: white !important;
+}
+
+.special-name {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 20px;
+  line-height: 1;
+}
+
+.special-price {
+  font-weight: 800;
+  background: var(--ink);
+  color: var(--bg-paper);
+  padding: 2px 6px;
+}
+
+.special-desc {
+  margin: 0;
+  font-size: 14px;
+  opacity: 0.7;
+}
+
+.special-add-btn {
+  margin-top: auto;
+  background: white;
+  border: 2px solid black;
+  font-weight: 800;
+  padding: 8px;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: 0.2s;
+}
+
+.special-add-btn:hover {
+  background: black;
   color: white;
 }
 
@@ -348,7 +489,8 @@ body {
 .checkout-btn {
   width: 100%;
   background: var(--ink);
-  color: white;
+  color: var(--bg-paper);
+  /* Dynamic contrast (White in Light, Black in Dark) */
   border: none;
   padding: 16px;
   font-family: var(--font-display);
@@ -395,6 +537,8 @@ body {
   font-size: 20px;
   cursor: pointer;
   transition: 0.2s;
+  color: var(--ink);
+  /* Force theme color */
 }
 
 .dock-btn:hover {
@@ -429,6 +573,45 @@ body {
 
   .floating-dock {
     width: 100%;
+    padding: 16px;
+  }
+
+  .dock-pill {
+    padding: 12px 20px;
+    gap: 16px;
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .dock-btn {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 600px) {
+  .specials-banner {
+    padding: 16px;
+  }
+
+  .specials-title {
+    font-size: 24px;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .card-num-display {
+    font-size: 18px;
+    letter-spacing: 1px;
+  }
+
+  #chatOverlay {
+    width: 90% !important;
+    bottom: 90px !important;
+  }
+
+  .payment-terminal-card {
+    width: 90% !important;
+    max-width: 400px;
   }
 }
 
@@ -471,6 +654,97 @@ body {
 
 .receipt-content.new {
   animation: printReceipt 0.5s ease-out forwards;
+}
+
+/* --- Payment Terminal --- */
+.pay-opt-btn {
+  flex: 1;
+  background: transparent;
+  border: 2px solid var(--ink);
+  color: var(--ink);
+  /* Explicit color */
+  padding: 8px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+body.void-mode .pay-opt-btn {
+  border-color: #fff;
+  color: #fff;
+}
+
+.pay-opt-btn.active {
+  background: var(--ink);
+  color: var(--bg-paper) !important;
+}
+
+body.void-mode .pay-opt-btn.active {
+  background: #fff;
+  color: #000 !important;
+}
+
+.virtual-card {
+  background: #1a1a1a;
+  color: white;
+  padding: 24px;
+  border-radius: 12px;
+  margin-bottom: 24px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  font-family: 'Courier New', monospace;
+}
+
+.chip {
+  width: 40px;
+  height: 30px;
+  background: #d4af37;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.chip::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.card-num-display {
+  font-size: 22px;
+  letter-spacing: 2px;
+  margin-bottom: 8px;
+  text-shadow: 0 1px 0 black;
+}
+
+.terminal-input {
+  width: 100%;
+  padding: 12px;
+  border: 3px solid var(--ink);
+  font-family: 'Space Grotesk';
+  font-weight: 700;
+  font-size: 16px;
+  background: transparent;
+  color: var(--ink);
+}
+
+body.void-mode .terminal-input {
+  border-color: #fff;
+  color: #fff;
+}
+
+.log-line {
+  margin-bottom: 4px;
+  opacity: 0;
+  animation: fadeIn 0.1s forwards;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
 }
 
 /* Scrollbar styling for raw feel */
