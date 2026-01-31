@@ -1,0 +1,21 @@
+{
+  "name": "EatWise",
+  "short_name": "EatWise",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#FFFDF5",
+  "theme_color": "#121212",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "https://via.placeholder.com/192.png/121212/CCFF00?text=EW",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "https://via.placeholder.com/512.png/121212/CCFF00?text=EatWise",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
