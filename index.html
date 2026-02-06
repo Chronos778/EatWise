@@ -11,6 +11,25 @@
 
 <body>
 
+  <!-- Preloader -->
+  <div id="preloader">
+    <div class="preloader-content">
+      <div class="preloader-logo-wrapper">
+        <span class="char">E</span><span class="char">A</span><span class="char">T</span><span
+          class="char">W</span><span class="char">I</span><span class="char">S</span><span class="char">E</span>
+      </div>
+      <div class="loader-meta">
+        <div class="loader-counter" id="loaderCounter">000%</div>
+        <div class="preloader-bar">
+          <div class="preloader-progress" id="loaderBar"></div>
+        </div>
+      </div>
+      <div class="preloader-logs" id="loaderLogs">
+        > SYSTEM BOOT_
+      </div>
+    </div>
+  </div>
+
   <div class="app-layout">
 
     <!-- 1. Marquee Header -->
@@ -24,28 +43,42 @@
     <!-- 2. Main Feed -->
     <main class="main-feed">
 
-      <!-- Specials Section -->
-      <div id="dailySpecials" style="margin-bottom: 40px;"></div>
+      <!-- Wrapper for Parallax Effect -->
+      <div class="feed-content-wrapper">
+        <!-- Specials Section -->
+        <div id="dailySpecials" style="margin-bottom: 40px;"></div>
 
-      <div class="feed-header">
-        <h1 class="section-title">TODAY'S<br>MENU</h1>
+        <div class="feed-header">
+          <h1 class="section-title">TODAY'S<br>MENU</h1>
 
-        <div class="filter-bar" id="categoryFilters">
-          <button class="filter-btn active" data-cat="all">All</button>
+          <div class="filter-bar" id="categoryFilters">
+            <button class="filter-btn active" data-cat="all">All</button>
+            <!-- Injected JS -->
+          </div>
+
+          <div style="margin-bottom:32px; border:3px solid black; display:inline-flex;">
+            <span style="background:black; color:white; padding:12px; font-weight:bold;">SEARCH</span>
+            <input type="text" id="searchInput" placeholder="..."
+              style="border:none; padding:12px; font-family:'Space Grotesk'; font-size:16px; font-weight:bold; outline:none; width:200px;">
+          </div>
+        </div>
+
+        <!-- Dish Grid -->
+        <div class="dish-grid" id="menuGrid">
           <!-- Injected JS -->
         </div>
+      </div>
 
-        <div style="margin-bottom:32px; border:3px solid black; display:inline-flex;">
-          <span style="background:black; color:white; padding:12px; font-weight:bold;">SEARCH</span>
-          <input type="text" id="searchInput" placeholder="..."
-            style="border:none; padding:12px; font-family:'Space Grotesk'; font-size:16px; font-weight:bold; outline:none; width:200px;">
+      <footer class="main-footer">
+        <div class="footer-top">
+          <div class="footer-logo">EATWISE</div>
+          <div class="footer-links">
+            <a href="#">INSTAGRAM</a>
+            <a href="#">TWITTER</a>
+            <a href="#">EMAIL</a>
+          </div>
         </div>
-      </div>
-
-      <!-- Dish Grid -->
-      <div class="dish-grid" id="menuGrid">
-        <!-- Injected JS -->
-      </div>
+      </footer>
 
     </main>
 
