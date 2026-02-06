@@ -111,60 +111,9 @@ function init() {
   renderSpecials();
   renderMenu();
   renderFilters();
-  // Preloader
-  initPreloader();
-}
+  document.getElementById('currentDate').textContent = new Date().toLocaleDateString();
 
-function initPreloader() {
-  const bar = document.getElementById('loaderBar');
-  const logs = document.getElementById('loaderLogs');
-  const counter = document.getElementById('loaderCounter');
-  const preloader = document.getElementById('preloader');
-
-  const messages = [
-    "> INITIALIZING KERNEL...",
-    "> LOADING ASSETS [TEXTURES]...",
-    "> CONNECTING TO MAINNET...",
-    "> DECRYPTING MENU DATA...",
-    "> SYSTEM READY."
-  ];
-
-  let progress = 0.00;
-  let msgIndex = 0;
-
-  // High-precision ticker
-  const update = () => {
-    // Variable speed for realism
-    progress += Math.random() * 1.5;
-
-    if (progress >= 100.00) {
-      progress = 100.00;
-      counter.textContent = "100.00%";
-      bar.style.width = "100%";
-      logs.textContent = messages[4];
-
-      setTimeout(() => {
-        preloader.classList.add('loaded');
-      }, 800);
-      return;
-    }
-
-    counter.textContent = progress.toFixed(2) + "%";
-    bar.style.width = `${progress}%`;
-
-    // Log logic based on thresholds
-    if (progress > 20 && msgIndex === 0) { logs.textContent = messages[0]; msgIndex++; }
-    if (progress > 40 && msgIndex === 1) { logs.textContent = messages[1]; msgIndex++; }
-    if (progress > 60 && msgIndex === 2) { logs.textContent = messages[2]; msgIndex++; }
-    if (progress > 80 && msgIndex === 3) { logs.textContent = messages[3]; msgIndex++; }
-
-    requestAnimationFrame(update);
-  };
-
-  requestAnimationFrame(update);
-}
-
-function renderSpecials() {
+  // Listeners
   els.search.oninput = (e) => {
     state.searchTerm = e.target.value;
     renderMenu();
