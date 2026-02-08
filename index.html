@@ -4,7 +4,26 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>EATWISE /// RAW</title>
+  <title>EATWISE /// RAW - Fresh Food, Fast Ordering</title>
+  
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="EATWISE RAW MARKET - A brutalist-first food lab for bold flavors, fast picks, and clean ingredients. Order curated meals with zero preservatives and max flavor." />
+  <meta name="keywords" content="food ordering, fresh ingredients, brutalist design, online menu, fast food, healthy meals, raw market" />
+  <meta name="author" content="EatWise" />
+  
+  <!-- Open Graph / Social Media -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="EATWISE /// RAW MARKET" />
+  <meta property="og:description" content="Bold flavors, fast picks, and clean ingredients. 300+ curated bites with zero preservatives." />
+  <meta property="og:url" content="https://chronos778.github.io/EatWise/" />
+  
+  <!-- Favicon & App Icons -->
+  <link rel="icon" type="image/svg+xml" href="images/favicon.svg" />
+  <link rel="apple-touch-icon" sizes="192x192" href="images/icon-192.svg" />
+  
+  <!-- Manifest -->
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#121212" />
 
   <link rel="stylesheet" href="style.css" />
 </head>
@@ -24,21 +43,89 @@
     <!-- 2. Main Feed -->
     <main class="main-feed">
 
+      <!-- Hero / Masthead -->
+      <section class="hero" id="top">
+        <div class="hero-left">
+          <div class="hero-kicker">RAW KITCHEN /// SMART ORDERING</div>
+          <h1 class="hero-title">EATWISE<br>RAW MARKET</h1>
+          <p class="hero-subtitle">A brutalist-first food lab for bold flavors, fast picks, and clean ingredients.</p>
+
+          <div class="hero-actions">
+            <button class="btn btn-solid" type="button" data-scroll="#menuAnchor">SEE MENU</button>
+            <button class="btn btn-ghost" type="button" id="openChatBtn">ASK AI WAITER</button>
+          </div>
+
+          <div class="hero-stats">
+            <div class="stat-card">
+              <div class="stat-value">15 MIN</div>
+              <div class="stat-label">AVG PICKUP</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value">300+</div>
+              <div class="stat-label">CURATED BITES</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value">4.9</div>
+              <div class="stat-label">RAW RATING</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-right">
+          <div class="hero-panel">
+            <div class="hero-panel-title">TONIGHT'S FLOW</div>
+            <ul class="hero-panel-list">
+              <li>SCAN MENU</li>
+              <li>FILTER BY STYLE</li>
+              <li>BUILD YOUR TICKET</li>
+              <li>PAY & PRINT</li>
+            </ul>
+            <div class="hero-panel-tag">NO PRESERVATIVES /// MAX FLAVOR</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="trust-strip">
+        <div>LOCAL SOURCING</div>
+        <div>CHEF-CURATED</div>
+        <div>LIVE SPECIALS</div>
+        <div>ZERO FILLERS</div>
+      </section>
+
       <!-- Specials Section -->
       <div id="dailySpecials" style="margin-bottom: 40px;"></div>
 
+      <section class="value-grid">
+        <div class="value-card">
+          <div class="value-title">RAW INGREDIENTS</div>
+          <div class="value-desc">Sourced daily. Zero artificial junk. Pure flavor focus.</div>
+        </div>
+        <div class="value-card">
+          <div class="value-title">SMART FILTERS</div>
+          <div class="value-desc">Instant category and search for fast decision paths.</div>
+        </div>
+        <div class="value-card">
+          <div class="value-title">BRUTAL TICKET</div>
+          <div class="value-desc">Order clarity with live totals and quick edits.</div>
+        </div>
+      </section>
+
       <div class="feed-header">
+        <div id="menuAnchor" class="anchor"></div>
         <h1 class="section-title">TODAY'S<br>MENU</h1>
 
-        <div class="filter-bar" id="categoryFilters">
-          <button class="filter-btn active" data-cat="all">All</button>
-          <!-- Injected JS -->
-        </div>
+        <div class="menu-toolbar">
+          <div class="filter-bar" id="categoryFilters">
+            <button class="filter-btn active" data-cat="all">All</button>
+            <!-- Injected JS -->
+          </div>
 
-        <div style="margin-bottom:32px; border:3px solid black; display:inline-flex;">
-          <span style="background:black; color:white; padding:12px; font-weight:bold;">SEARCH</span>
-          <input type="text" id="searchInput" placeholder="..."
-            style="border:none; padding:12px; font-family:'Space Grotesk'; font-size:16px; font-weight:bold; outline:none; width:200px;">
+          <div class="search-box">
+            <label class="search-label" for="searchInput">Search</label>
+            <input type="text" id="searchInput" placeholder="Type a dish, vibe, or ingredient">
+          </div>
+
+          <div class="result-count" id="resultCount">0 ITEMS</div>
         </div>
       </div>
 
@@ -46,6 +133,17 @@
       <div class="dish-grid" id="menuGrid">
         <!-- Injected JS -->
       </div>
+
+      <section class="cta-panel" id="updates">
+        <div class="cta-copy">
+          <div class="cta-title">GET RAW UPDATES</div>
+          <div class="cta-subtitle">Menu drops, limited specials, and chef collabs.</div>
+        </div>
+        <form class="cta-form" id="updatesForm">
+          <input type="email" id="updatesEmail" placeholder="EMAIL" required>
+          <button class="btn btn-solid" type="submit">JOIN LIST</button>
+        </form>
+      </section>
 
     </main>
 
@@ -69,7 +167,7 @@
         <div class="total-section">
           <div class="total-row">
             <span>TOTAL</span>
-            <span id="cartTotal">$0.00</span>
+            <span id="cartTotal">₹0.00</span>
           </div>
           <button class="checkout-btn" id="checkoutBtn">PRINT RECEIPT</button>
         </div>
@@ -77,9 +175,7 @@
       </div>
 
       <!-- Mobile Close Button -->
-      <button id="closeCartMobile"
-        style="margin-top:20px; background:transparent; border:none; text-decoration:underline; cursor:pointer;"
-        class="hidden mobile-only">CLOSE TICKET</button>
+      <button id="closeCartMobile" class="mobile-only close-cart-btn">✕ CLOSE</button>
     </aside>
 
     <!-- 4. Floating Dock (Bottom) -->
@@ -115,17 +211,17 @@
     style="position:fixed; inset:0; background:rgba(0,0,0,0.95); z-index:100; display:none; align-items:center; justify-content:center;">
 
     <div class="brut-card payment-terminal-card"
-      style="padding:0; background:var(--bg-paper); border:4px solid var(--ink);">
+      style="padding:0; background:var(--bg-paper); border:6px solid var(--ink); box-shadow:12px 12px 0 var(--ink); max-width:500px; width:90%;">
       <!-- Terminal Header -->
       <div
-        style="background:var(--ink); color:white; padding:16px; font-family:var(--font-display); font-weight:800; display:flex; justify-content:space-between; align-items:center;">
-        <span>TERMINAL v2.0</span>
+        style="background:var(--ink); color:var(--acid-green); padding:20px; font-family:var(--font-display); font-weight:800; display:flex; justify-content:space-between; align-items:center; border-bottom:6px solid var(--ink);">
+        <span>/// RAW PAYMENT GATE ///</span>
         <button id="closePayment"
-          style="background:transparent; color:white; border:none; font-size:24px; cursor:pointer;">X</button>
+          style="background:var(--acid-green); color:var(--ink); border:3px solid var(--acid-green); font-size:18px; font-weight:800; cursor:pointer; padding:4px 12px;">×</button>
       </div>
 
       <!-- Quick Pay Options -->
-      <div style="padding:16px; border-bottom:var(--border-thick); display:flex; gap:8px;">
+      <div style="padding:20px; border-bottom:4px solid var(--ink); display:flex; gap:0;">
         <button class="pay-opt-btn active" data-method="card">CARD</button>
         <button class="pay-opt-btn" data-method="crypto">CRYPTO</button>
         <button class="pay-opt-btn" data-method="apple">APPLE</button>
@@ -134,12 +230,13 @@
       <!-- Main Interface -->
       <div id="paymentFormUI" style="padding:24px;">
 
-        <!-- Virtual Card Visual -->
+        <!-- Brutalist Card Visual -->
         <div class="virtual-card">
+          <div class="card-header">/// PAYMENT CARD ///</div>
           <div class="chip"></div>
           <div class="card-num-display" id="cardNumDisp">0000 0000 0000 0000</div>
-          <div style="display:flex; justify-content:space-between; margin-top:20px;">
-            <div class="card-name-display">VALUED CUSTOMER</div>
+          <div style="display:flex; justify-content:space-between; margin-top:16px; padding-top:12px; border-top:2px solid rgba(255,255,255,0.2);">
+            <div class="card-name-display">RAW CUSTOMER</div>
             <div class="card-exp-display" id="cardExpDisp">MM/YY</div>
           </div>
         </div>
@@ -161,25 +258,41 @@
           </div>
         </div>
 
-        <button id="confirmPayBtn" class="checkout-btn" style="background:var(--acid-green); color:black;">
-          INITIATE TRANSFER
+        <button id="confirmPayBtn" class="checkout-btn" style="background:var(--acid-green); color:var(--ink); font-size:16px; padding:16px; border:4px solid var(--ink); box-shadow:4px 4px 0 var(--ink);">
+          /// AUTHORIZE PAYMENT ///
         </button>
       </div>
 
       <!-- Terminal Log / Processing Screen -->
       <div id="paymentLogUI" class="hidden"
-        style="padding:24px; height:360px; background:black; color:var(--acid-green); font-family:'Courier New'; overflow:hidden;">
-        <div id="terminalLogList"></div>
+        style="padding:60px 32px; min-height:360px; background:var(--ink); color:var(--acid-green); font-family:'Courier New', monospace; overflow:hidden; border-top:6px solid var(--ink); display:flex; align-items:center; justify-content:center;">
+        <div id="terminalLogList" style="font-size:18px; line-height:2.2; text-align:center; width:100%;"></div>
       </div>
 
     </div>
   </div>
 
   <div id="toast" class="toast"
-    style="position:fixed; top:20px; left:50%; transform:translateX(-50%); background:black; color:#CCFF00; padding:16px 32px; font-weight:800; display:none;">
-    ACTION CONFIRMED
+    style="position:fixed; top:20px; left:50%; transform:translateX(-50%); background:var(--ink); color:var(--acid-green); padding:16px 32px; font-weight:800; display:none; border:4px solid var(--ink); box-shadow:6px 6px 0 rgba(0,0,0,0.5); z-index:1000;">
+    /// ACTION CONFIRMED ///
   </div>
 
+  <!-- 5. Opening Typography Scene -->
+  <div id="intro-scene" class="intro-scene">
+    <button id="skipIntro" class="intro-skip">SKIP</button>
+    <div class="intro-line">
+      <div class="intro-char">UNFILTERED</div>
+    </div>
+    <div class="intro-line">
+      <div class="intro-char">FLAVORS</div>
+    </div>
+    <div class="intro-line">
+      <div class="intro-divider"></div>
+      <div class="intro-char" style="color:var(--acid-green);">EATWISE</div>
+    </div>
+  </div>
+
+  <script src="config.js" defer></script>
   <script src="script.js" defer></script>
 </body>
 

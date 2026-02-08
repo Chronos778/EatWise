@@ -5,72 +5,294 @@ const menuData = [
     id: "m1",
     name: "PIZZA MARGHERITA",
     category: "Veg",
-    price: 220,
-    description: "CLASSIC. TOMATO. MOZZARELLA. BASIL."
+    price: 240,
+    description: "CLASSIC TOMATO. MILK MOZZARELLA. BASIL OIL.",
+    tags: ["CHEESE", "BASIL"],
+    calories: 620,
+    time: 12,
+    image: "images/pizza-margherita.jpg"
   },
   {
     id: "m2",
     name: "ALFREDO PASTA",
     category: "Veg",
-    price: 260,
-    description: "CREAMY. GARLIC. PARMESAN."
+    price: 280,
+    description: "CREAMY GARLIC. PARMESAN SHARDS. CRACKED PEPPER.",
+    tags: ["CREAMY", "GARLIC"],
+    calories: 720,
+    time: 14,
+    image: "images/alfredo-pasta.jpg"
   },
   {
     id: "m3",
-    name: "MEGA BURGER",
+    name: "SMOKED PANEER TIKKA",
     category: "Veg",
-    price: 180,
-    description: "VEGGIE PATTY. LETTUCE. BIG BUN."
+    price: 260,
+    description: "CHARRED PANEER. SPICE DUST. LIME.",
+    tags: ["SMOKED", "SPICY"],
+    calories: 540,
+    time: 10,
+    image: "images/paneer-tikka.jpg"
   },
   {
     id: "m4",
-    name: "DAL MAKHANI",
+    name: "TRUFFLE MUSHROOM TOAST",
     category: "Veg",
-    price: 240,
-    description: "BLACK LENTIL. BUTTER. RICH."
+    price: 220,
+    description: "CRISP SOURDOUGH. BLACK TRUFFLE. HERB BUTTER.",
+    tags: ["TRUFFLE", "CRISP"],
+    calories: 460,
+    time: 8,
+    image: "images/mushroom-truffle-toast.jpg"
   },
   {
     id: "m5",
     name: "MASALA DOSA",
     category: "Veg",
-    price: 150,
-    description: "CRISPY CREPE. SPICED POTATO."
+    price: 160,
+    description: "CRISPY CREPE. SPICED POTATO. CHUTNEY.",
+    tags: ["CRISP", "SOUTH"],
+    calories: 430,
+    time: 9,
+    image: "images/masala-dosa.jpg"
   },
   {
     id: "m6",
-    name: "GRILLED SANDWICH",
+    name: "GRILLED VEG SANDWICH",
     category: "Veg",
-    price: 130,
-    description: "TOASTED. CHEESE. VEGGIES."
+    price: 150,
+    description: "TOASTED BREAD. MELTED CHEESE. CRUNCH.",
+    tags: ["TOASTED", "MELT"],
+    calories: 410,
+    time: 7,
+    image: "images/veg-grilled-sandwich.jpg"
   },
   // --- Non-Veg ---
   {
     id: "m7",
     name: "PEPPERONI PIZZA",
     category: "Non-Veg",
-    price: 350,
-    description: "SPICY PEPPERONI. CHEESE. HOT."
+    price: 380,
+    description: "SPICY PEPPERONI. DOUBLE CHEESE. HOT.",
+    tags: ["SPICY", "CHEESE"],
+    calories: 780,
+    time: 13,
+    image: "images/pepperoni-pizza.jpg"
   },
   {
     id: "m8",
     name: "CHICKEN WINGS",
     category: "Non-Veg",
-    price: 280,
-    description: "BBQ SAUCE. CRISPY. 6 PIECES."
+    price: 300,
+    description: "BBQ GLAZE. CRISPY SKIN. 6 PIECES.",
+    tags: ["BBQ", "CRISP"],
+    calories: 690,
+    time: 11,
+    image: "images/chicken-wings.jpg"
   },
   {
     id: "m9",
     name: "GRILLED FISH",
     category: "Non-Veg",
-    price: 420,
-    description: "LEMON BUTTER. HERBS. FRESH."
+    price: 440,
+    description: "LEMON BUTTER. HERB RUB. FRESH CUT.",
+    tags: ["HERB", "LIGHT"],
+    calories: 520,
+    time: 12,
+    image: "images/grilled-fish.jpg"
   },
   {
     id: "m10",
     name: "CHICKEN BURGER",
     category: "Non-Veg",
-    price: 250,
-    description: "GRILLED BREAST. SPICY MAYO."
+    price: 260,
+    description: "GRILLED BREAST. SPICY MAYO. PICKLES.",
+    tags: ["GRILLED", "SPICY"],
+    calories: 640,
+    time: 10,
+    image: "images/chicken-burger.jpg"
+  },
+  {
+    id: "m11",
+    name: "BUTTER CHICKEN",
+    category: "Non-Veg",
+    price: 360,
+    description: "CREAMY TOMATO. CHARRED CHICKEN. NAAN DIP.",
+    tags: ["CREAMY", "RICH"],
+    calories: 760,
+    time: 14,
+    image: "images/butter-chicken.jpg"
+  },
+  {
+    id: "m12",
+    name: "SPICY LAMB KEBABS",
+    category: "Non-Veg",
+    price: 420,
+    description: "SMOKE KISS. MINT DRIZZLE. RED HEAT.",
+    tags: ["SMOKED", "SPICY"],
+    calories: 680,
+    time: 12,
+    image: "images/lamb-kebabs.jpg"
+  },
+  // --- Vegan ---
+  {
+    id: "m13",
+    name: "CHILI TOFU BOWL",
+    category: "Vegan",
+    price: 240,
+    description: "CRISPY TOFU. GARLIC CHILI. RICE.",
+    tags: ["VEGAN", "SPICY"],
+    calories: 520,
+    time: 10,
+    image: "images/tofu-bowl.jpg"
+  },
+  {
+    id: "m14",
+    name: "JACKFRUIT TACOS",
+    category: "Vegan",
+    price: 260,
+    description: "PULLED JACKFRUIT. PICKLED ONION. LIME.",
+    tags: ["VEGAN", "TANG"],
+    calories: 480,
+    time: 9,
+    image: "images/jackfruit-tacos.jpg"
+  },
+  {
+    id: "m15",
+    name: "AVOCADO LIME SALAD",
+    category: "Vegan",
+    price: 200,
+    description: "CRISP GREENS. LIME VINAIGRETTE. SEEDS.",
+    tags: ["FRESH", "LIGHT"],
+    calories: 360,
+    time: 6,
+    image: "images/avocado-salad.jpg"
+  },
+  // --- Bowls ---
+  {
+    id: "m16",
+    name: "POWER GRAIN BOWL",
+    category: "Bowls",
+    price: 280,
+    description: "QUINOA. ROASTED VEG. CITRUS DRESSING.",
+    tags: ["FIBER", "FRESH"],
+    calories: 540,
+    time: 9,
+    image: "images/power-grain-bowl.jpg"
+  },
+  {
+    id: "m17",
+    name: "TERIYAKI CHICKEN BOWL",
+    category: "Bowls",
+    price: 320,
+    description: "GLAZED CHICKEN. SESAME RICE. SLAW.",
+    tags: ["SWEET", "SAVORY"],
+    calories: 690,
+    time: 11,
+    image: "images/teriyaki-chicken-bowl.jpg"
+  },
+  // --- Protein ---
+  {
+    id: "m18",
+    name: "STEAK PLATE",
+    category: "Protein",
+    price: 520,
+    description: "SEARED STEAK. GARLIC BUTTER. GREENS.",
+    tags: ["HIGH PROTEIN", "SEARED"],
+    calories: 840,
+    time: 14,
+    image: "images/steak-plate.jpg"
+  },
+  {
+    id: "m19",
+    name: "SALMON PLATE",
+    category: "Protein",
+    price: 480,
+    description: "CRISP SKIN SALMON. LEMON. HERBS.",
+    tags: ["OMEGA", "LIGHT"],
+    calories: 620,
+    time: 12,
+    image: "images/salmon-plate.jpg"
+  },
+  {
+    id: "m20",
+    name: "PROTEIN OMELET",
+    category: "Protein",
+    price: 220,
+    description: "EGG WHITES. SPINACH. FETA.",
+    tags: ["LEAN", "FAST"],
+    calories: 380,
+    time: 7,
+    image: "images/protein-omelet.jpg"
+  },
+  // --- Drinks ---
+  {
+    id: "m21",
+    name: "COLD BREW TONIC",
+    category: "Drinks",
+    price: 140,
+    description: "NITRO COLD BREW. CITRUS TWIST. BUBBLES.",
+    tags: ["CAFFEINE", "FRESH"],
+    calories: 120,
+    time: 3,
+    image: "images/cold-brew-tonic.jpg"
+  },
+  {
+    id: "m22",
+    name: "MINT LIME SPARK",
+    category: "Drinks",
+    price: 120,
+    description: "MINT. LIME. SPARKLING ICE.",
+    tags: ["COOL", "LIGHT"],
+    calories: 90,
+    time: 3,
+    image: "images/mint-lime-spark.jpg"
+  },
+  // --- Dessert ---
+  {
+    id: "m23",
+    name: "BROWNIE SLAB",
+    category: "Dessert",
+    price: 180,
+    description: "DARK COCOA. SEA SALT. FUDGE CORE.",
+    tags: ["RICH", "DARK"],
+    calories: 520,
+    time: 5,
+    image: "images/brownie-slab.jpg"
+  },
+  {
+    id: "m24",
+    name: "BERRY YOGURT CUP",
+    category: "Dessert",
+    price: 150,
+    description: "GREEK YOGURT. MIXED BERRIES. HONEY.",
+    tags: ["LIGHT", "FRESH"],
+    calories: 320,
+    time: 4,
+    image: "images/berry-yogurt-cup.jpg"
+  },
+  // --- Sides ---
+  {
+    id: "m25",
+    name: "TRUFFLE FRIES",
+    category: "Sides",
+    price: 160,
+    description: "CRISPY POTATO. TRUFFLE SALT. PARM.",
+    tags: ["CRISP", "SALT"],
+    calories: 440,
+    time: 6,
+    image: "images/truffle-fries.jpg"
+  },
+  {
+    id: "m26",
+    name: "CRUNCH SLAW",
+    category: "Sides",
+    price: 120,
+    description: "CABBAGE. CARROT. CITRUS BITE.",
+    tags: ["CRUNCH", "TANG"],
+    calories: 180,
+    time: 4,
+    image: "images/crunch-slaw.jpg"
   }
 ];
 
@@ -113,6 +335,13 @@ function init() {
   renderFilters();
   document.getElementById('currentDate').textContent = new Date().toLocaleDateString();
 
+  document.querySelectorAll('[data-scroll]').forEach(btn => {
+    btn.onclick = () => {
+      const target = document.querySelector(btn.dataset.scroll);
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    };
+  });
+
   // Listeners
   els.search.oninput = (e) => {
     state.searchTerm = e.target.value;
@@ -129,11 +358,33 @@ function init() {
   };
 
   els.dockCart.onclick = toggleCartMobile;
+  
+  const closeCartBtn = document.getElementById('closeCartMobile');
+  if (closeCartBtn) {
+    closeCartBtn.onclick = () => {
+      els.cartPanel.classList.remove('open');
+    };
+  }
+  
+  document.getElementById('openChatBtn').onclick = () => {
+    els.chatOverlay.classList.remove('hidden');
+    if (!els.chatInput.disabled) {
+      els.chatInput.focus();
+    }
+  };
+
+  document.getElementById('updatesForm').onsubmit = (e) => {
+    e.preventDefault();
+    const email = document.getElementById('updatesEmail');
+    if (!email.value.trim()) return;
+    showToast('/// EMAIL REGISTERED /// WATCH FOR DROPS ///');
+    email.value = '';
+  };
 
   // Theme Toggle
   document.getElementById('dockTheme').onclick = () => {
     document.body.classList.toggle('void-mode');
-    showToast(document.body.classList.contains('void-mode') ? 'VOID MODE ACTIVATED ☾' : 'LIGHT MODE RESTORED ☀');
+    showToast(document.body.classList.contains('void-mode') ? '/// VOID MODE ACTIVATED ///' : '/// LIGHT MODE ACTIVATED ///');
   };
 
   // Chat
@@ -143,7 +394,15 @@ function init() {
 function renderSpecials() {
   // Only generate once if empty
   if (state.specials.length === 0) {
-    state.specials = [...menuData].sort(() => 0.5 - Math.random()).slice(0, 2);
+    // Tier-based selection: pick 1 premium high-price, 1 category diverse
+    const premium = menuData.filter(d => d.price >= 420).sort(() => 0.5 - Math.random())[0];
+    const categoryPool = menuData.filter(d => d.category !== premium.category);
+    const diverse = categoryPool.sort(() => 0.5 - Math.random())[0];
+    state.specials = [premium, diverse].filter(Boolean);
+    if (state.specials.length < 2) {
+      // Fallback if not enough items
+      state.specials = [...menuData].sort(() => 0.5 - Math.random()).slice(0, 2);
+    }
   }
   const specials = state.specials;
 
@@ -154,6 +413,7 @@ function renderSpecials() {
       <div class="specials-grid">
         ${specials.map(d => `
           <div class="special-card">
+            <div class="special-img" style="background-image:url('${d.image}'); background-size:cover; background-position:center; height:180px; border-bottom:2px solid black; margin:-16px -16px 12px -16px;"></div>
             <div style="display:flex; justify-content:space-between; align-items:start;">
               <h3 class="special-name">${d.name}</h3>
               <span class="special-price">₹${d.price}</span>
@@ -171,28 +431,51 @@ function renderSpecials() {
 
 // --- Render (TEXT ONLY MODE) ---
 function renderMenu() {
+  const term = state.searchTerm.toLowerCase().trim();
   const filtered = menuData.filter(d => {
-    return (state.category === 'all' || d.category === state.category) &&
-      d.name.toLowerCase().includes(state.searchTerm.toLowerCase());
+    const inCategory = state.category === 'all' || d.category === state.category;
+    if (!inCategory) return false;
+    if (!term) return true;
+    const haystack = `${d.name} ${d.description} ${(d.tags || []).join(' ')}`.toLowerCase();
+    return haystack.includes(term);
   });
 
-  // New "Text-Card" Design
+  const countEl = document.getElementById('resultCount');
+  if (countEl) countEl.textContent = `${filtered.length} ITEMS`;
+
+  if (filtered.length === 0) {
+    els.grid.innerHTML = `
+      <div class="empty-state">
+        <div class="empty-title">NO MATCHES</div>
+        <div class="empty-desc">TRY A DIFFERENT SEARCH OR CLEAR FILTERS.</div>
+      </div>
+    `;
+    return;
+  }
+
+  // New "Text-Card" Design with Images
   els.grid.innerHTML = filtered.map(d => `
-    <div class="brut-card" style="min-height: 220px; display: flex; flex-direction: column; justify-content: space-between;">
-      <div style="padding: 24px; flex: 1;">
-         <div style="display:flex; justify-content:space-between; margin-bottom:12px; align-items:flex-start;">
+    <div class="brut-card menu-card" style="display: flex; flex-direction: column; justify-content: space-between; overflow:hidden;">
+      <div class="card-img-container">
+        <img src="${d.image}" alt="${d.name}" class="card-img" onerror="this.style.display='none'">
+      </div>
+      <div class="card-content">
+         <div class="card-top">
             <h3 class="card-title" style="font-size:32px; line-height:0.9; margin:0; word-break:break-word;">${d.name}</h3>
             <div class="price-tag" style="font-size:24px;">₹${d.price}</div>
          </div>
-         
-         <div class="card-badges" style="margin-bottom:24px;">
+
+         <div class="card-meta">
             <span class="badge" style="background:var(--ink); color:var(--bg-paper);">${d.category.toUpperCase()}</span>
+            <span class="meta-pill">${d.calories} CAL</span>
+            <span class="meta-pill">${d.time} MIN</span>
+            ${(d.tags || []).slice(0, 2).map(t => `<span class="meta-pill">${t}</span>`).join('')}
          </div>
-         
-         <p style="font-family:'Space Grotesk'; font-size:16px; font-weight:500; opacity:0.8; text-transform:uppercase;">${d.description}</p>
+
+         <p class="card-desc">${d.description}</p>
       </div>
-      
-      <button class="add-btn" onclick="addToCart('${d.id}')" style="width:100%; height:60px; font-size:18px; font-weight:800; display:flex; align-items:center; justify-content:center; gap:8px;">
+
+      <button class="add-btn add-btn-full" onclick="addToCart('${d.id}')">
         ADD DIRECTLY <span>+</span>
       </button>
     </div>
@@ -211,7 +494,7 @@ window.addToCart = (id) => {
   const item = menuData.find(d => d.id === id);
   state.plate.push(item);
   renderCart();
-  showToast(`ADDED: ${item.name}`);
+  showToast(`/// ADDED: ${item.name} ///`);
 };
 
 function renderCart() {
@@ -266,7 +549,7 @@ const termUI = {
 
 document.getElementById('checkoutBtn').onclick = () => {
   if (state.plate.length === 0) {
-    showToast('PLATE IS EMPTY. ADD FOOD.');
+    showToast('/// PLATE EMPTY /// ADD ITEMS ///');
     return;
   }
   // Reset UI
@@ -322,18 +605,14 @@ document.getElementById('confirmPayBtn').onclick = () => {
   termUI.logList.innerHTML = '';
 
   const logs = [
-    `> INITIALIZING SECURE LINK...`,
-    `> HANDSHAKE ESTABLISHED (TLS 1.3)`,
-    `> VERIFYING ${method} CREDENTIALS...`,
-    `> ENCRYPTING PACKET [################]`,
-    `> CONNECTING TO BANK GATEWAY...`,
-    `> AUTHORIZING TRANSACTION...`,
-    `> PAYMENT APPROVED.`
+    `/// CONNECTING`,
+    `/// PROCESSING ${method}`,
+    `/// APPROVED ///`
   ];
 
   let delay = 0;
   logs.forEach((line, i) => {
-    delay += Math.floor(Math.random() * 400) + 200;
+    delay += 650;
     setTimeout(() => {
       termUI.logList.innerHTML += `<div class="log-line">${line}</div>`;
       // Final step
@@ -349,7 +628,7 @@ function finishPayment() {
     paymentModal.style.display = 'none';
     const paper = document.querySelector('.receipt-paper');
     paper.classList.add('printing');
-    showToast('TRANSACTION COMPLETE. PRINTING RECEIPT 🖨️');
+    showToast('/// PAYMENT COMPLETE /// PRINTING TICKET ///');
 
     setTimeout(() => {
       state.plate = [];
@@ -380,13 +659,19 @@ function finishPayment() {
 
 // --- Chatbot Integration ---
 function setupChat() {
-  const GEMINI_API_KEY = "AIzaSyDhVpaS93W9wfFDgcczNic4rX5vzdelUEo";
+  const GEMINI_API_KEY = (window.EATWISE_CONFIG && window.EATWISE_CONFIG.GEMINI_API_KEY) || '';
   // User requested 2.5 Flash -> Explicitly setting gemini-2.5-flash
   const GEMINI_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${GEMINI_API_KEY}`;
   console.log("AI Model: Gemini 2.5 Flash");
 
   els.chatStart.onclick = () => els.chatOverlay.classList.remove('hidden');
   els.chatClose.onclick = () => els.chatOverlay.classList.add('hidden');
+
+  if (!GEMINI_API_KEY) {
+    els.chatInput.placeholder = 'CHAT OFFLINE. ADD API KEY.';
+    els.chatInput.disabled = true;
+    return;
+  }
 
   async function sendMessage() {
     const text = els.chatInput.value.trim();
@@ -462,6 +747,45 @@ USER QUERY: ${text}`;
 
   els.chatInput.onkeydown = (e) => {
     if (e.key === 'Enter') sendMessage();
+  };
+}
+
+// --- Opening Typography Scene Trigger ---
+function hideIntroScene() {
+  const scene = document.getElementById('intro-scene');
+  if (!scene) return;
+  scene.classList.add('lift-curtain');
+  scene.style.pointerEvents = 'none';
+  setTimeout(() => {
+    scene.style.display = 'none';
+  }, 1300);
+}
+
+window.addEventListener('load', () => {
+  // 1. Reveal Text
+  setTimeout(() => {
+    const scene = document.getElementById('intro-scene');
+    if (scene) {
+      scene.classList.add('is-visible');
+      scene.onclick = hideIntroScene;
+
+      // 2. Lift Curtain after text animation (1.5s + 0.4s stagger + reading time)
+      setTimeout(() => {
+        hideIntroScene();
+      }, 2500);
+    }
+  }, 300);
+
+  // Failsafe: never let the intro block taps
+  setTimeout(() => {
+    hideIntroScene();
+  }, 4500);
+});
+
+const skipIntroBtn = document.getElementById('skipIntro');
+if (skipIntroBtn) {
+  skipIntroBtn.onclick = () => {
+    hideIntroScene();
   };
 }
 
