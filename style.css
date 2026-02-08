@@ -1222,6 +1222,7 @@ body.void-mode .cta-form input {
   }
 
   .add-btn-full {
+    width: 100%;
     height: 48px;
     font-size: 14px;
     white-space: nowrap;
