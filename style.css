@@ -796,6 +796,7 @@ body.void-mode .badge {
   font-weight: 800;
   text-transform: uppercase;
   gap: 8px;
+  white-space: nowrap;
 }
 
 .add-btn:active {
@@ -1222,7 +1223,8 @@ body.void-mode .cta-form input {
 
   .add-btn-full {
     height: 48px;
-    font-size: 16px;
+    font-size: 14px;
+    white-space: nowrap;
   }
 
   .specials-banner {
