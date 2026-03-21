@@ -776,6 +776,7 @@ body.void-mode .badge {
 }
 
 .add-btn {
+  font-family: var(--font-display);
   background: var(--hot-pink);
   color: white;
   border: var(--border-thin);
