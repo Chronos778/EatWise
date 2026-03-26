@@ -1,271 +1,208 @@
-# EATWISE /// RAW
+# EatWise RAW MARKET
 
-![EatWise Banner](https://img.shields.io/badge/STYLE-NEO--BRUTALISM-black?style=for-the-badge) ![AI](https://img.shields.io/badge/AI-GEMINI--1.5-green?style=for-the-badge)
+A brutalist-style food ordering web app built with plain HTML, CSS, and JavaScript.
 
-**A RAW, NO-NONSENSE RESTAURANT ORDERING SYSTEM.**
-Built with pure HTML, CSS, and JS. Designed for speed, aesthetics, and efficiency.
+The current project is a single-page app with a searchable menu, category filters, daily specials, cart and checkout flow, simulated terminal payment UI, and Gemini-powered AI waiter support.
 
-## /// FEATURES
+## Highlights
 
-### ★ DAILY SPECIALS
+- Static app with zero build step and zero runtime dependencies
+- 26 menu items across 8 categories
+- Real-time search and category filtering
+- Live cart with instant total calculation
+- Daily specials banner with one-click add
+- Payment Terminal v2 with virtual card UI and processing logs (simulated)
+- AI waiter integration using Google Gemini 2.5 Flash
+- Light mode and Void mode (dark) theme toggle
+- Responsive layout with mobile cart panel behavior
+- Intro scene animation with skip support
 
-- **Chef's Selection**: Randomly generated daily recommendations.
-- **Instant Add**: One-click add to cart from the specials banner.
-- **Void Mode**: Optimized dark mode with high-contrast visuals.
+## Tech Stack
 
-### 🤖 AI WAITER (Gemini 1.5)
+- HTML5
+- CSS3 (custom properties, grid/flex, animations)
+- Vanilla JavaScript (ES6+)
+- Google Gemini API (optional feature)
+- Web App Manifest for installable app metadata
 
-- **Smart Ordering**: Type "I want a pizza" and the AI adds it to your cart.
-- **Context Aware**: Knows the menu, prices, and your current order.
-- **Raw Personality**: A robotic, efficient, and brutalist AI persona.
+## Project Structure
 
-### 💳 TERMINAL PAYMENT v2.0
+- index.html: app layout, sections, modal shells, script loading
+- style.css: visual system, brutalist styling, responsive behavior, animations
+- script.js: menu data, rendering, filters, cart logic, payment flow, chatbot logic
+- config.js: runtime API key source used by the chatbot
+- config.example.js: empty template for API key setup
+- manifest.json: PWA metadata and icons
+- images/: app and menu assets
 
-- **Virtual Card**: Real-time visual updates as you type.
-- **Hacker-Style Processing**: Simulated terminal logs and connection sequences.
-- **Multiple Modes**: Support for CARD, CRYPTO, and APPLE PAY (Visual).
+## Current Feature Set
 
-### 🎨 NEO-BRUTALIST DESIGN
+### Menu and Discovery
 
-- **Bold Typography**: Syne & Space Grotesk fonts.
-- **High Contrast**: Acid Green on Black / Stark White on Black.
-- **Responsive**: Fluid layout from mobile to desktop.
-- **Interactive**: Hover effects, marquee scrolling, and smooth transitions.
+- Displays 26 dishes, each with price, category, calories, prep time, tags, and image
+- Category filter buttons are generated dynamically from menu data
+- Search matches against dish name, description, and tags
+- Live item count updates with filtering
 
-## /// INSTALLATION
+### Daily Specials
 
-1. **Clone**
+- Generates two specials per session:
+  - one premium item (price >= 420)
+  - one item from a different category
+- Includes a fallback random selection if needed
+- Special cards support direct add to cart
 
-   ```bash
-   git clone https://github.com/Chronos778/EatWise.git
-   cd eatwise
-   ```
+### Cart and Receipt Panel
 
-2. **Run**
-   - Open `index.html` in any browser.
-   - Or use a local server: `npx serve`
+- Add items from menu cards and specials
+- Remove items individually from receipt list
+- Live total and cart count updates
+- Empty-state receipt message when no items are in cart
 
-## /// TECH STACK
+### Payment Terminal v2
 
-- **Core**: HTML5, CSS3, Vanilla JS
-- **AI**: Google Gemini API
-- **Fonts**: Google Fonts (Syne, Space Grotesk)
+- Opens only when cart has at least one item
+- Form includes card number, expiry, and CVV inputs
+- Card number and expiry are formatted while typing
+- Visual payment method tabs: CARD, CRYPTO, APPLE
+- On authorize, UI switches to terminal logs:
+  - CONNECTING
+  - PROCESSING <METHOD>
+  - APPROVED
+- After payment:
+  - cart clears
+  - search/filter reset
+  - order ID regenerates
+  - date refreshes
+  - receipt panel animation runs
 
----
-**EAT WISE /// LIVE GOOD**
+### AI Waiter (Gemini)
 
-![EatWise Preview](https://img.shields.io/badge/Version-1.0.0-blue.svg)
-![License](https://img.shields.io/badge/License-MIT-green.svg)
-![Responsive](https://img.shields.io/badge/Responsive-Yes-brightgreen.svg)
+- Uses window.EATWISE_CONFIG.GEMINI_API_KEY from config.js
+- If key is missing, chat input is disabled and marked offline
+- Uses model: gemini-2.5-flash
+- AI receives full menu + specials context in system prompt
+- Supports order commands with protocol:
+  - CMD:ORDER|<item_id> || <message>
+- When command is returned, item is auto-added to cart
 
-## ✨ Features
+### Theme and UX
 
-### 🎯 Core Functionality
+- Default light palette + Void mode dark palette
+- Floating dock actions for menu/cart/chat/theme
+- Smooth scroll buttons and toast notifications
+- Intro typography scene auto-dismisses and supports manual skip
+- Mobile breakpoint at 900px with cart panel slide behavior
 
-- **Multi-Step Ordering Process**: Intuitive 4-step workflow (Select → Edit → Review → Payment)
-- **Customizable Menu Items**: Full control over ingredients and extras
-- **Real-time Price Calculation**: Dynamic pricing based on customizations
-- **Smart Search & Filters**: Instant search by name, description, or category
-- **Shopping Cart Management**: Complete cart control with add/remove/edit capabilities
+## Quick Start
 
-### 🤖 AI Integration
-
-- **Gemini AI Chatbot**: Intelligent virtual assistant for menu recommendations
-- **Natural Language Processing**: Conversational queries about dishes, prices, and dietary needs
-- **Contextual Responses**: Smart fallback system for offline functionality
-
-### 🎨 Design & UX
-
-- **Modern UI**: Stunning gradient themes with glassmorphism effects
-- **Smooth Animations**: 15+ custom CSS animations (fade-ins, ripples, transitions)
-- **Dark Mode**: Seamless light/dark theme toggle with persistence
-- **📱 Fully Responsive**: Optimized for mobile, tablet, and desktop devices
-- **Touch Optimized**: 44px minimum touch targets for mobile accessibility
-- **Toast Notifications**: Non-intrusive success/error feedback
-- **Loading Screen**: Elegant animated splash screen
-
-### ⌨️ Keyboard Shortcuts
-
-- `ESC` - Close modal
-- `/` - Focus search bar
-- `Ctrl/Cmd + 1-4` - Quick navigation between steps (when cart has items)
-
-### 🎯 Interactive Elements
-
-- **Ingredient Removal**: One-click ingredient exclusion with visual feedback
-- **Extra Additions**: Add premium extras with animated confirmations
-- **Quantity Selection**: Flexible portion control before checkout
-- **Payment Methods**: Multiple options (UPI, Credit/Debit Card, Cash on Delivery)
-
-## 🚀 Technologies Used
-
-- **Frontend**: HTML5, CSS3, Vanilla JavaScript (ES6+)
-- **AI**: Google Gemini API (1.5 Flash model)
-- **Images**: Unsplash Source API
-- **Design**: Custom CSS Grid/Flexbox with advanced animations
-- **No Frameworks**: Pure vanilla JS for optimal performance and zero dependencies
-- **Responsive**: CSS Media Queries for mobile-first design
-
-## 📦 Installation & Setup
-
-1. **Clone the repository:**
+1. Clone repository
 
 ```bash
 git clone https://github.com/Chronos778/EatWise.git
-cd eatwise
+cd EatWise
 ```
 
-1. **Open the application:**
-   - Simply open `index.html` in your browser, or
-   - Use a local development server:
+2. Run the app
+
+- Simplest: open index.html in a browser
+- Recommended for API calls: use a local server
 
 ```bash
-# Using Python 3
+# Python 3
 python -m http.server 8000
 
-# Using Node.js
+# Node.js
 npx serve
 
-# Using PHP
+# PHP
 php -S localhost:8000
 ```
 
-1. **Configure AI Chatbot (Optional):**
-   - Get a free API key from [Google AI Studio](https://makersuite.google.com/app/apikey)
-   - Add your key in `script.js`:
+3. Open in browser
+
+- If serving locally: http://localhost:8000
+
+## Deployment
+
+This project is a static site, so deployment is straightforward.
+
+### Option 1: GitHub Pages
+
+1. Push your code to a GitHub repository.
+2. In your repository, open Settings > Pages.
+3. Under Build and deployment:
+  - Source: Deploy from a branch
+  - Branch: main (or your default branch)
+  - Folder: / (root)
+4. Save and wait for deployment.
+5. Your site will be available at:
+  - https://<your-username>.github.io/<your-repo>/
+
+Note: If your repository name is not EatWise, update any hardcoded public URL references as needed.
+
+### Option 2: Netlify (Fastest)
+
+1. Sign in to Netlify.
+2. Click Add new site > Import an existing project (or drag-and-drop the project folder).
+3. Build command: leave empty.
+4. Publish directory: leave empty (root).
+5. Deploy.
+
+### Option 3: Vercel
+
+1. Import the GitHub repository in Vercel.
+2. Framework preset: Other.
+3. Build command: leave empty.
+4. Output directory: leave empty.
+5. Deploy.
+
+### Production Note for AI Key
+
+The current app reads GEMINI_API_KEY from config.js on the client, which exposes the key publicly in browser-delivered code.
+
+For production use, move Gemini calls behind a backend endpoint (serverless function or API server), keep the key in server-side secrets, and have the frontend call your backend instead of Google Gemini directly.
+
+## AI Setup (Optional)
+
+1. Get an API key from Google AI Studio.
+2. Set your key in config.js:
 
 ```javascript
-const GEMINI_API_KEY = "your-api-key-here";
+window.EATWISE_CONFIG = {
+  GEMINI_API_KEY: 'your-api-key-here'
+};
 ```
 
-1. **Access the app:**
-   - Open `http://localhost:8000` in your browser
-   - Start ordering delicious food! 🍽️
+3. Reload the app.
 
-## 🎮 Usage
+Note: config.example.js contains the same structure with an empty key.
 
-1. **Browse Menu**: Scroll through 12+ delicious vegetarian dishes
-2. **Customize**: Click any dish to customize ingredients and add extras
-3. **Add to Plate**: Review and add customized items to your order
-4. **Review Order**: Check your complete order with itemized pricing
-5. **Payment**: Select payment method and complete your order
-6. **Chat Assistant**: Click the chatbot for menu recommendations and help
+## Configuration Points
 
-## 🌟 Features Showcase
+- Menu catalog: edit menuData in script.js
+- Theme tokens: edit CSS variables in :root and body.void-mode in style.css
+- Specials logic: renderSpecials in script.js
+- Payment log cadence: confirmPayBtn handler in script.js
+- AI persona/prompt behavior: setupChat system prompt in script.js
 
-### Menu Items Include
+## Known Limitations
 
-- 🍕 Margherita Pizza
-- 🍝 Pasta Alfredo
-- 🧈 Paneer Tikka
-- 🍔 Veg Burger
-- 🍛 Dal Makhani
-- 🍚 Veg Biryani
-- 🥞 Masala Dosa
-- 🥙 Chole Bhature
-- 🥟 Veg Manchurian
-- 🥬 Palak Paneer
-- 🥟 Spring Rolls
-- 🥪 Veg Sandwich
+- Payment is simulated only; no real payment gateway integration
+- No backend, authentication, or order history
+- No localStorage/session persistence for cart
+- AI features require internet and a valid Gemini API key
+- Images are external; broken image URLs are hidden at runtime
 
-### Customization Options
+## Browser Support
 
-- Remove any ingredient
-- Add extras (cheese, toppings, sides)
-- Adjust quantity
-- See real-time price updates
+Designed for modern browsers with support for:
 
-## 🎨 Design Highlights
+- CSS Grid/Flexbox
+- CSS custom properties
+- Fetch API
+- ES6 JavaScript
 
-- **Color Scheme**: Purple gradient theme (#667eea → #764ba2)
-- **Typography**: Modern sans-serif fonts with proper hierarchy
-- **Spacing**: Generous whitespace for clean layout
-- **Shadows**: Layered shadows for depth
-- **Animations**: 15+ custom CSS animations
-- **Icons**: Emoji-based for universal compatibility
+## License
 
-## 🔧 Configuration
-
-Edit `script.js` to modify:
-
-- Menu items and pricing
-- AI chatbot responses
-- Animation timings
-- Color themes
-
-Edit `style.css` to customize:
-
-- Colors and gradients
-- Spacing and layout
-- Animation effects
-- Dark mode styles
-
-## 📱 Browser Support
-
-| Browser | Version | Status |
-|---------|---------|--------|
-| Chrome | Latest | ✅ Recommended |
-| Firefox | Latest | ✅ Supported |
-| Safari | Latest | ✅ Supported |
-| Edge | Latest | ✅ Supported |
-| Mobile Safari | iOS 12+ | ✅ Optimized |
-| Chrome Mobile | Latest | ✅ Optimized |
-
-## 📱 Mobile Responsiveness
-
-EatWise is fully optimized for all screen sizes:
-
-- **Mobile (< 768px)**: Single column layout, touch-optimized buttons
-- **Tablet (768px - 1024px)**: Two-column grid, balanced spacing
-- **Desktop (> 1024px)**: Multi-column layout, full features
-- **Touch Devices**: Minimum 44px touch targets, swipe gestures
-
-## 🤝 Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-1. Fork the project
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-## 📄 License
-
-This project is open source and available under the [MIT License](LICENSE).
-
-## 👨‍💻 Author
-
-Created with ❤️ by **Maithil** ([Chronos778](https://github.com/Chronos778))
-
-## 🙏 Acknowledgments
-
-- **Google Gemini AI** - Powering the intelligent chatbot
-- **Unsplash** - High-quality food imagery
-- **Modern Food Delivery Apps** - UI/UX inspiration
-
-## 📊 Project Stats
-
-- **Lines of Code**: ~2000+ (HTML/CSS/JS)
-- **File Size**: Lightweight (<100KB total)
-- **Load Time**: <2s on standard connection
-- **Performance**: 90+ Lighthouse score
-
-## 🐛 Known Issues & Future Enhancements
-
-- [ ] Add user authentication
-- [ ] Integrate real payment gateway
-- [ ] Add order history tracking
-- [ ] Multi-language support
-- [ ] Progressive Web App (PWA) support
-
-## 📞 Support
-
-- **Issues**: [GitHub Issues](https://github.com/Chronos778/EatWise/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/Chronos778/EatWise/discussions)
-
----
-
-**⭐ Star this repo if you found it helpful!**
-
-Made with 💜 and lots of ☕
+MIT License. See LICENSE for details.

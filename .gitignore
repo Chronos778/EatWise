@@ -6,7 +6,7 @@
 *~
 .DS_Store
 Thumbs.db
-
+.github/
 # Logs
 *.log
 npm-debug.log*
