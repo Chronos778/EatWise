@@ -30,10 +30,11 @@ The current project is a single-page app with a searchable menu, category filter
 - index.html: app layout, sections, modal shells, script loading
 - style.css: visual system, brutalist styling, responsive behavior, animations
 - script.js: menu data, rendering, filters, cart logic, payment flow, chatbot logic
-- config.js: runtime API key source used by the chatbot
-- config.example.js: empty template for API key setup
 - manifest.json: PWA metadata and icons
 - images/: app and menu assets
+- backend/server.py: local Python API proxy for chatbot requests
+- backend/.env.example: local backend environment template
+- backend/requirements.txt: Python dependencies for the backend
 
 ## Current Feature Set
 
@@ -78,12 +79,12 @@ The current project is a single-page app with a searchable menu, category filter
 
 ### AI Waiter (Gemini)
 
-- Uses window.EATWISE_CONFIG.GEMINI_API_KEY from config.js
-- If key is missing, chat input is disabled and marked offline
-- Uses model: gemini-2.5-flash
+- Chat requests are sent to a backend endpoint (`/api/chat` in deployed environments, `http://127.0.0.1:8787/api/chat` when local)
+- If backend is not running/reachable, chat returns a service-unavailable response
+- Backend uses model: gemini-2.5-flash
 - AI receives full menu + specials context in system prompt
 - Supports order commands with protocol:
-  - CMD:ORDER|<item_id> || <message>
+  - `CMD:ORDER|ITEM_ID || MESSAGE`
 - When command is returned, item is auto-added to cart
 
 ### Theme and UX
@@ -127,6 +128,8 @@ php -S localhost:8000
 
 This project is a static site, so deployment is straightforward.
 
+Important for AI chat: static hosts (like GitHub Pages) cannot securely run Gemini requests directly from the browser. Keep keys in backend `.env` only.
+
 ### Option 1: GitHub Pages
 
 1. Push your code to a GitHub repository.
@@ -157,26 +160,37 @@ Note: If your repository name is not EatWise, update any hardcoded public URL re
 4. Output directory: leave empty.
 5. Deploy.
 
-### Production Note for AI Key
+### AI Runtime Note
 
-The current app reads GEMINI_API_KEY from config.js on the client, which exposes the key publicly in browser-delivered code.
+The frontend no longer stores Gemini keys in client-side config files.
 
-For production use, move Gemini calls behind a backend endpoint (serverless function or API server), keep the key in server-side secrets, and have the frontend call your backend instead of Google Gemini directly.
+- Local runtime: chat calls `http://127.0.0.1:8787/api/chat`
+- Non-local runtime: chat calls `/api/chat`
 
-## AI Setup (Optional)
+This keeps provider keys in backend environment variables instead of browser code.
 
-1. Get an API key from Google AI Studio.
-2. Set your key in config.js:
+If you deploy frontend only (no backend at `/api/chat`), the app still loads and chat shows service unavailable.
 
-```javascript
-window.EATWISE_CONFIG = {
-  GEMINI_API_KEY: 'your-api-key-here'
-};
+## Local Python Backend (No Deployment)
+
+1. Create and activate a Python virtual environment.
+1. Install dependencies:
+
+```bash
+pip install -r backend/requirements.txt
 ```
 
-3. Reload the app.
+1. Create backend/.env from backend/.env.example and set GEMINI_API_KEY.
+1. Keep ALLOWED_ORIGINS limited to your local dev hosts. Add `,null` only if you intentionally run from `file://`.
+1. Run the backend:
 
-Note: config.example.js contains the same structure with an empty key.
+```bash
+python backend/server.py
+```
+
+1. Run your frontend locally (or open index.html directly).
+
+Chat requests will be routed through the local backend endpoint.
 
 ## Configuration Points
 
@@ -189,7 +203,7 @@ Note: config.example.js contains the same structure with an empty key.
 ## Known Limitations
 
 - Payment is simulated only; no real payment gateway integration
-- No backend, authentication, or order history
+- No deployed backend, authentication, or order history by default
 - No localStorage/session persistence for cart
 - AI features require internet and a valid Gemini API key
 - Images are external; broken image URLs are hidden at runtime

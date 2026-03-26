@@ -659,33 +659,100 @@ function finishPayment() {
 
 // --- Chatbot Integration ---
 function setupChat() {
-  const GEMINI_API_KEY = (window.EATWISE_CONFIG && window.EATWISE_CONFIG.GEMINI_API_KEY) || '';
-  // User requested 2.5 Flash -> Explicitly setting gemini-2.5-flash
-  const GEMINI_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${GEMINI_API_KEY}`;
-  console.log("AI Model: Gemini 2.5 Flash");
+  const host = window.location.hostname;
+  const isLocalRuntime =
+    window.location.protocol === 'file:' ||
+    host === 'localhost' ||
+    host === '127.0.0.1' ||
+    host === '::1' ||
+    host === '[::1]';
+  const CHAT_API_PROXY_URL = isLocalRuntime
+    ? 'http://127.0.0.1:8787/api/chat'
+    : '/api/chat';
+  const MAX_CHAT_INPUT_CHARS = 300;
+  const MIN_SEND_INTERVAL_MS = 900;
+  const REQUEST_TIMEOUT_MS = 15000;
+
+  let lastSendAt = 0;
+  let pendingController = null;
+
+  function sanitizeChatText(value) {
+    return value
+      .replace(/[\u0000-\u001F\u007F]/g, ' ')
+      .replace(/\s+/g, ' ')
+      .trim();
+  }
+
+  function appendChatLine(role, text, id) {
+    const line = document.createElement('div');
+    line.style.marginBottom = '8px';
+    if (id) line.id = id;
+    line.textContent = `> ${role}: ${text.toUpperCase()}`;
+    els.chatMsgs.appendChild(line);
+    els.chatMsgs.scrollTop = els.chatMsgs.scrollHeight;
+    return line;
+  }
+
+  function updateChatLine(lineId, role, text) {
+    const line = document.getElementById(lineId);
+    if (!line) return;
+    line.textContent = `> ${role}: ${text.toUpperCase()}`;
+    els.chatMsgs.scrollTop = els.chatMsgs.scrollHeight;
+  }
+
+  function extractGeminiReply(data) {
+    return data &&
+      data.candidates &&
+      data.candidates[0] &&
+      data.candidates[0].content &&
+      data.candidates[0].content.parts &&
+      data.candidates[0].content.parts[0] &&
+      typeof data.candidates[0].content.parts[0].text === 'string'
+      ? data.candidates[0].content.parts[0].text
+      : '';
+  }
+
+  function parseReplyText(data) {
+    if (typeof data.reply === 'string') return data.reply;
+    if (typeof data.text === 'string') return data.text;
+    return extractGeminiReply(data);
+  }
 
   els.chatStart.onclick = () => els.chatOverlay.classList.remove('hidden');
   els.chatClose.onclick = () => els.chatOverlay.classList.add('hidden');
 
-  if (!GEMINI_API_KEY) {
-    els.chatInput.placeholder = 'CHAT OFFLINE. ADD API KEY.';
-    els.chatInput.disabled = true;
-    return;
-  }
-
   async function sendMessage() {
-    const text = els.chatInput.value.trim();
+    const text = sanitizeChatText(els.chatInput.value);
     if (!text) return;
+    if (text.length > MAX_CHAT_INPUT_CHARS) {
+      appendChatLine('SYSTEM', `MAX ${MAX_CHAT_INPUT_CHARS} CHARS ALLOWED`);
+      return;
+    }
+
+    const now = Date.now();
+    if (now - lastSendAt < MIN_SEND_INTERVAL_MS) {
+      appendChatLine('SYSTEM', 'SLOW DOWN. TRY AGAIN IN A MOMENT.');
+      return;
+    }
+    lastSendAt = now;
+
+    if (pendingController) {
+      pendingController.abort();
+      pendingController = null;
+    }
+
+    pendingController = new AbortController();
+    const timeoutId = setTimeout(() => {
+      if (pendingController) pendingController.abort();
+    }, REQUEST_TIMEOUT_MS);
 
     // User Message
-    els.chatMsgs.innerHTML += `<div style="margin-bottom:8px;">> USER: ${text.toUpperCase()}</div>`;
+    appendChatLine('USER', text);
     els.chatInput.value = '';
-    els.chatMsgs.scrollTop = els.chatMsgs.scrollHeight;
 
     // Bot Processing
     const processingId = 'proc-' + Date.now();
-    els.chatMsgs.innerHTML += `<div id="${processingId}" style="margin-bottom:8px;">> SYSTEM: PROCESSING...</div>`;
-    els.chatMsgs.scrollTop = els.chatMsgs.scrollHeight;
+    appendChatLine('SYSTEM', 'PROCESSING...', processingId);
 
     try {
       // Create context
@@ -708,21 +775,35 @@ IMPORTANT:
 
 USER QUERY: ${text}`;
 
-      const response = await fetch(GEMINI_URL, {
+      const response = await fetch(CHAT_API_PROXY_URL, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Requested-With': 'EatWiseChatClient'
+        },
+        credentials: 'omit',
+        referrerPolicy: 'no-referrer',
+        signal: pendingController.signal,
         body: JSON.stringify({
-          contents: [{ parts: [{ text: systemPrompt }] }]
+          prompt: systemPrompt,
+          message: text
         })
       });
+
+      if (!response.ok) {
+        throw new Error(`REQUEST FAILED (${response.status})`);
+      }
 
       const data = await response.json();
 
       if (data.error) {
-        throw new Error(data.error.message);
+        throw new Error('UPSTREAM ERROR');
       }
 
-      let reply = data.candidates[0].content.parts[0].text;
+      let reply = sanitizeChatText(parseReplyText(data));
+      if (!reply) {
+        throw new Error('EMPTY RESPONSE');
+      }
 
       // Check for commands
       if (reply.includes("CMD:ORDER|")) {
@@ -730,18 +811,25 @@ USER QUERY: ${text}`;
         const cmdPart = parts[0].trim(); // CMD:ORDER|m1
         const msgPart = parts[1] ? parts[1].trim() : "ORDER CONFIRMED.";
 
-        const itemId = cmdPart.split("|")[1];
-        if (itemId) {
+        const itemId = cmdPart.split("|")[1] ? cmdPart.split("|")[1].trim() : '';
+        const isValidItemId = menuData.some(item => item.id === itemId);
+        if (isValidItemId) {
           window.addToCart(itemId);
         }
         reply = msgPart;
       }
 
       // Update UI
-      document.getElementById(processingId).innerHTML = `> AI: ${reply.toUpperCase()}`;
+      updateChatLine(processingId, 'AI', reply);
     } catch (e) {
-      console.error(e);
-      document.getElementById(processingId).innerHTML = `> AI: ERROR. ${e.message ? e.message.toUpperCase() : 'OFFLINE'}`;
+      if (e && e.name === 'AbortError') {
+        updateChatLine(processingId, 'AI', 'REQUEST TIMED OUT. TRY AGAIN.');
+      } else {
+        updateChatLine(processingId, 'AI', 'ERROR. CHAT SERVICE UNAVAILABLE.');
+      }
+    } finally {
+      clearTimeout(timeoutId);
+      pendingController = null;
     }
   }
 

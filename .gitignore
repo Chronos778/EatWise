@@ -6,7 +6,6 @@
 *~
 .DS_Store
 Thumbs.db
-.github/
 # Logs
 *.log
 npm-debug.log*
@@ -14,7 +13,7 @@ npm-debug.log*
 # Environment variables
 .env
 .env.local
-config.js
+backend/.env
 
 # Dependencies (if you add npm later)
 node_modules/
@@ -22,3 +21,14 @@ node_modules/
 # Build outputs (if you add build process)
 dist/
 build/
+
+# Python artifacts
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.venv/
+venv/
